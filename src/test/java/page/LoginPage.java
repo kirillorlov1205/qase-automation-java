@@ -22,6 +22,9 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//span[@class='ic9QAx']")
     private WebElement loginValidationMessage;
 
+    @FindBy(xpath = "//h1[contains(text(),'SSO Login')]")
+    private WebElement loginSsoPageHeading;
+
     public LoginPage fillEmail(String userName) {
         new Input(EMAIL_FIELD_LOCATOR).writeText(userName);
         return this;
@@ -58,5 +61,13 @@ public class LoginPage extends BasePage {
     public LoginPage openLoginPage() {
         UiDriverActions.openPage(LOGIN_PAGE_URL);
         return this;
+    }
+
+    public boolean isLoginPageOpened() {
+        return new Button(LOGIN_BUTTON_LOCATOR).isDisplayed();
+    }
+
+    public boolean isSsoLoginPageOpened() {
+        return Waiter.waitElementToBeDisplayed(loginSsoPageHeading).isDisplayed();
     }
 }

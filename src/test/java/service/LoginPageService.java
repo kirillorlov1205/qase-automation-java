@@ -12,7 +12,7 @@ public class LoginPageService {
     public ProjectsPageService login(User user) {
         loginPage = new LoginPage();
         loginPage.openLoginPage()
-                .fillUsername(user.getEmail())
+                .fillEmail(user.getEmail())
                 .fillPassword(user.getPassword())
                 .clickLoginButton();
         return new ProjectsPageService();
@@ -36,11 +36,13 @@ public class LoginPageService {
         return loginPage.isEmptyFieldValidationMessageDisplayed("password");
     }
 
+    @Step("Getting wrong email format validation message")
     public String getWrongEmailFormatValidationMessage() {
         loginPage = new LoginPage();
         return loginPage.getWrongEmailFormatValidationMessage();
     }
 
+    @Step("Clicking forgot password button")
     public PasswordResetPageService clickForgotPasswordButton() {
         loginPage = new LoginPage();
         loginPage.openLoginPage()
@@ -48,22 +50,15 @@ public class LoginPageService {
         return new PasswordResetPageService();
     }
 
-    //input[@name='email']//ancestor::div[@class='tdishH']//small
-//    @Step("Opening Login page")
-//    public LoginPageService openLoginPage() {
-//        loginPage = new LoginPage();
-//        loginPage.openLoginPage();
-//        return this;
-//    }
+    @Step("Verifying if Login page opened")
+    public boolean isLoginPageOpened() {
+        loginPage = new LoginPage();
+        return loginPage.isLoginPageOpened();
+    }
 
-//    @Step("Getting login page url")
-//    public String getLoginPageUrl() {
-//        return loginPage.getLoginPageUrl();
-//    }
-//
-
-//    @Step("Getting login validation error text")
-//    public String getLoginValidationErrorText() {
-//        return loginPage.getLoginValidationErrorText();
-//    }
+    @Step("Verifying if SSO Login page opened")
+    public boolean isSsoLoginPageOpened() {
+        loginPage = new LoginPage();
+        return loginPage.isSsoLoginPageOpened();
+    }
 }

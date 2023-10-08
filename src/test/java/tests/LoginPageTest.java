@@ -74,25 +74,6 @@ public class LoginPageTest extends BaseTest {
                 "match expected");
     }
 
-//    User not found
-//    Email format
-//    Valid email
-//
-
-    @Test(description = "Verify successful password reset", priority = 7)
-    @Description("Successful password reset")
-    public void verifySuccessfulPasswordReset() {
-        loginPageService.clickForgotPasswordButton()
-                .fillEmail(Constants.USER_WITH_VALID_CREDENTIALS.getEmail())
-                .clickSendButtonResetLinkButton();
-
-//        String actualValidationMessage = loginPageService.getWrongEmailFormatValidationMessage();
-//        String expectedValidationMessage = String.format(Constants.INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE,
-//                userWithWrongFormatEmail.getEmail());
-//        Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
-//                "match expected");
-    }
-
     @DataProvider(name = "Wrong format emails")
     public Object[][] wrongFormatEmailsList() {
         return new Object[][]
