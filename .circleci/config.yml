@@ -1,0 +1,51 @@
+# Java Maven CircleCI 2.0 configuration file
+#
+# Check https://circleci.com/docs/2.0/language-java/ for more details
+# https://circleci.com/docs/2.0/browser-testing/#selenium
+version: 2
+jobs:
+  ui-tests:
+    docker:
+      - image: cimg/openjdk:11.0.18-browsers
+    working_directory: ~/repo
+    environment:
+    # get from git and get maven dependencies
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            - v1-dependencies-
+      - run: mvn dependency:go-offline
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "pom.xml" }}
+
+      - run:
+          name: Running tests
+          command: mvn -Dbrowser=chrome -Dsurefire.suiteXmlFiles="src\test\resources\testng-smoke.xml" clean test
+      - run:
+          name: Generate allure report
+          command: mvn allure:report
+          when: always
+      - store_test_results:
+          path: target/surefire-reports/junitreports
+          when: always
+      - store_artifacts:
+          path: target/site/allure-maven-plugin/
+workflows:
+  version: 2
+  commit:
+    jobs:
+      - ui-tests
+  periodical:
+    triggers:
+      - schedule:
+          cron: "1 4,8,12 * * *"
+          filters:
+            branches:
+              only:
+                - main
+    jobs:
+      - ui-tests
