@@ -1,12 +1,11 @@
 package elementsWrappers;
 
-import driver.UiDriverActions;
 import org.openqa.selenium.By;
 import utils.Waiter;
 
-public class ValidationMessage extends HtmlElement {
+public class Heading extends HtmlElement {
 
-    public ValidationMessage(By locator) {
+    public Heading(By locator) {
         super(locator);
     }
 

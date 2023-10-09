@@ -1,5 +1,6 @@
 package tests;
 
+import driver.UiDriverActions;
 import io.qameta.allure.Description;
 import model.Constants;
 import model.User;
@@ -23,7 +24,7 @@ public class LoginPageTest extends BaseTest {
     @Description("Login with valid credentials")
     public void verifySuccessfulLoginWithValidCredentials() {
         ProjectsPageService projectsPageService = loginPageService.login(Constants.USER_WITH_VALID_CREDENTIALS);
-        Assert.assertTrue(projectsPageService.isProjectsListDisplayed(), "Login failed");
+        Assert.assertTrue(projectsPageService.isProjectsPageDisplayed(), "Login failed");
     }
 
     @Test(description = "Verify wrong email validation", priority = 2)
@@ -74,15 +75,34 @@ public class LoginPageTest extends BaseTest {
                 "match expected");
     }
 
+    @Test(description = "Verify additional link transferring", priority = 7, dataProvider = "Additional links")
+    @Description("Additional link transferring")
+    public void verifyAdditionalLinkTransferring(String linkName, String expectedPageUrl) {
+        loginPageService.openLoginPage()
+                .clickOnAdditionalLinkByName(linkName);
+        String actualPageUrl = UiDriverActions.getSecondOpenedTabUrl();
+        Assert.assertTrue(actualPageUrl.contains(expectedPageUrl), "Page url doesn't match expected");
+    }
+
     @DataProvider(name = "Wrong format emails")
     public Object[][] wrongFormatEmailsList() {
+        return new Object[][]{
+                {"abc.def@mail#archive.com"},
+                {"abc..def@mail.com"},
+                {".abc@mail.com"},
+                {"abc.def@mail"},
+                {"abc.def@mail..com"}
+        };
+    }
+
+    @DataProvider(name = "Additional links")
+    public Object[][] additionalLinksList() {
         return new Object[][]
                 {
-                        {"abc.def@mail#archive.com"},
-                        {"abc..def@mail.com"},
-                        {".abc@mail.com"},
-                        {"abc.def@mail"},
-                        {"abc.def@mail..com"}
+                        {"YouTube", "https://www.youtube.com/playlist?list=PLt75o-m3IfmzbfsuO6Ey-mZgvEtLkWJnD"},
+                        {"blog", "https://qase.io/blog/"},
+                        {"Twitter", "https://twitter.com/qase_io"},
+                        {"LinkedIn", "https://www.linkedin.com/company/qaseio/"},
                 };
     }
 }

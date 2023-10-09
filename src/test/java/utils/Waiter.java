@@ -17,20 +17,22 @@ public class Waiter {
     }
 
     public static WebElement waitElementToBeDisplayedByLocator(By locator) {
-        new WebDriverWait(DriverSingleton.getInstance().getDriver(), Duration.ofSeconds(WAIT_15_SECONDS))
+        return new WebDriverWait(DriverSingleton.getInstance().getDriver(), Duration.ofSeconds(WAIT_15_SECONDS))
                 .until(ExpectedConditions.visibilityOfElementLocated(locator));
-        return DriverSingleton.getInstance().getDriver().findElement(locator);
     }
 
     public static WebElement waitElementToBeDisplayed(WebElement element) {
-        new WebDriverWait(DriverSingleton.getInstance().getDriver(), Duration.ofSeconds(WAIT_15_SECONDS))
+        return new WebDriverWait(DriverSingleton.getInstance().getDriver(), Duration.ofSeconds(WAIT_15_SECONDS))
                 .until(ExpectedConditions.visibilityOf(element));
-        return element;
     }
 
     public static List<WebElement> waitElementsToBeDisplayed(List<WebElement> elementsList) {
-        new WebDriverWait(DriverSingleton.getInstance().getDriver(), Duration.ofSeconds(WAIT_15_SECONDS))
+        return new WebDriverWait(DriverSingleton.getInstance().getDriver(), Duration.ofSeconds(WAIT_15_SECONDS))
                 .until(ExpectedConditions.visibilityOfAllElements(elementsList));
-        return elementsList;
+    }
+
+    public static List<WebElement> waitElementsToBeDisplayedByLocator(By locator) {
+        return new WebDriverWait(DriverSingleton.getInstance().getDriver(), Duration.ofSeconds(WAIT_15_SECONDS))
+                .until(ExpectedConditions.visibilityOfAllElementsLocatedBy(locator));
     }
 }

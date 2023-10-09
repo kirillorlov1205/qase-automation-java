@@ -1,8 +1,7 @@
 package elementsWrappers;
 
-import driver.DriverSingleton;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import utils.Waiter;
 
 public class HtmlElement {
 
@@ -12,15 +11,7 @@ public class HtmlElement {
         this.locator = locator;
     }
 
-    public WebElement getElement() {
-        return DriverSingleton.getInstance().getDriver().findElement(locator);
-    }
-
-    public By getLocator() {
-        return locator;
-    }
-
     public boolean isDisplayed() {
-        return this.getElement().isDisplayed();
+        return Waiter.waitElementToBeDisplayedByLocator(locator).isDisplayed();
     }
 }

@@ -61,4 +61,24 @@ public class LoginPageService {
         loginPage = new LoginPage();
         return loginPage.isSsoLoginPageOpened();
     }
+
+    @Step("Clicking on additional link")
+    public LoginPageService clickOnAdditionalLinkByName(String linkName) {
+        loginPage = new LoginPage();
+        loginPage.clickOnAdditionalLinkByName(linkName);
+        return this;
+    }
+
+    @Step("Opening login page")
+    public LoginPageService openLoginPage() {
+        loginPage = new LoginPage();
+        loginPage.openLoginPage();
+        return this;
+    }
+
+    @Step("Getting login page url")
+    public String getLoginPageUrl() {
+        loginPage = new LoginPage();
+        return loginPage.getLoginPageUrl();
+    }
 }

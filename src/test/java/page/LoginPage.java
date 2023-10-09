@@ -1,11 +1,8 @@
 package page;
 
 import driver.UiDriverActions;
-import elementsWrappers.Button;
-import elementsWrappers.Input;
+import elementsWrappers.*;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.FindBy;
 import utils.Waiter;
 
 public class LoginPage extends BasePage {
@@ -16,14 +13,11 @@ public class LoginPage extends BasePage {
     private static final By LOGIN_BUTTON_LOCATOR = By.xpath("//button[@type='submit']");
     private static final String EMPTY_FIELD_VALIDATION_MESSAGE_LOCATOR = "//input[@name='%s']" +
             "//ancestor::div[@class='tdishH']//small";
-    private static final String WRONG_EMAIL_FORMAT_VALIDATION_MESSAGE_LOCATOR = "//span[@class='ic9QAx']";
-    private static final String FORGOT_PASSWORD_BUTTON_LOCATOR = "//a[contains(text(),'Forgot password?')]";
-
-    @FindBy(xpath = "//span[@class='ic9QAx']")
-    private WebElement loginValidationMessage;
-
-    @FindBy(xpath = "//h1[contains(text(),'SSO Login')]")
-    private WebElement loginSsoPageHeading;
+    private static final By WRONG_EMAIL_FORMAT_VALIDATION_MESSAGE_LOCATOR = By.xpath("//span[@class='ic9QAx']");
+    private static final By FORGOT_PASSWORD_BUTTON_LOCATOR = By.xpath("//a[contains(text(),'Forgot password?')]");
+    private static final By LOGIN_VALIDATION_MESSAGE_LOCATOR = By.xpath("//span[@class='ic9QAx']");
+    private static final By LOGIN_SSO__PAGE_HEADING_LOCATOR = By.xpath("//h1[contains(text(),'SSO Login')]");
+    private static final String ADDITIONAL_LINK_LOCATOR = "//a[contains(text(),'%s')]";
 
     public LoginPage fillEmail(String userName) {
         new Input(EMAIL_FIELD_LOCATOR).writeText(userName);
@@ -35,12 +29,13 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public void clickLoginButton() {
+    public ProjectsPage clickLoginButton() {
         new Button(LOGIN_BUTTON_LOCATOR).click();
+        return new ProjectsPage();
     }
 
     public String getLoginValidationMessage() {
-        return loginValidationMessage.getText();
+        return new ValidationMessage(LOGIN_VALIDATION_MESSAGE_LOCATOR).getText();
     }
 
     public boolean isEmptyFieldValidationMessageDisplayed(String type) {
@@ -49,12 +44,11 @@ public class LoginPage extends BasePage {
     }
 
     public String getWrongEmailFormatValidationMessage() {
-        return Waiter.waitElementToBeDisplayedByLocator(By.xpath(WRONG_EMAIL_FORMAT_VALIDATION_MESSAGE_LOCATOR))
-                .getText();
+        return new ValidationMessage(WRONG_EMAIL_FORMAT_VALIDATION_MESSAGE_LOCATOR).getText();
     }
 
     public PasswordResetPage clickForgotPasswordButton() {
-        new Button(By.xpath(FORGOT_PASSWORD_BUTTON_LOCATOR)).click();
+        new Button(FORGOT_PASSWORD_BUTTON_LOCATOR).click();
         return new PasswordResetPage();
     }
 
@@ -68,6 +62,15 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isSsoLoginPageOpened() {
-        return Waiter.waitElementToBeDisplayed(loginSsoPageHeading).isDisplayed();
+        return new Heading(LOGIN_SSO__PAGE_HEADING_LOCATOR).isDisplayed();
+    }
+
+    public LoginPage clickOnAdditionalLinkByName(String name) {
+        new Link(By.xpath(String.format(ADDITIONAL_LINK_LOCATOR, name))).click();
+        return this;
+    }
+
+    public String getLoginPageUrl() {
+        return LOGIN_PAGE_URL;
     }
 }

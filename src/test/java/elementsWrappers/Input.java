@@ -9,7 +9,13 @@ public class Input extends HtmlElement {
         super(locator);
     }
 
-    public void writeText(String text) {
+    public Input writeText(String text) {
         Waiter.waitElementToBeDisplayedByLocator(locator).sendKeys(text);
+        return this;
+    }
+
+    public Input clear() {
+        Waiter.waitElementToBeDisplayedByLocator(locator).clear();
+        return this;
     }
 }
