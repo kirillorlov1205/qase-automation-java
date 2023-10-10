@@ -5,9 +5,9 @@ import utils.Utils;
 
 public class Project {
 
-    private String projectName = Utils.getRandomString(10);
-    private String projectCode = Utils.getRandomString(10).toUpperCase();
-    private String projectDescription = Utils.getRandomString(10);
+    private String projectName = Utils.getRandomString(9);
+    private String projectCode = Utils.getRandomString(9);
+    private String projectDescription = Utils.getRandomString(9);
     private Enums.ProjectAccessTypes projectAccessType = Enums.ProjectAccessTypes.Public;
 
     public Project(String projectName, String projectCode, String projectDescription, Enums.ProjectAccessTypes

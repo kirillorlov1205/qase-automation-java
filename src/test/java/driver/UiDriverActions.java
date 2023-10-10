@@ -1,11 +1,8 @@
 package driver;
 
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import utils.Waiter;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class UiDriverActions {
 
@@ -24,13 +21,13 @@ public class UiDriverActions {
         DriverSingleton.getInstance().getDriver().get(url);
     }
 
-    public static WebElement findElement(By locator) {
-        return Waiter.waitElementToBeDisplayedByLocator(locator);
-    }
-
-    public static List<WebElement> findElements(By locator) {
-        return Waiter.waitElementsToBeDisplayedByLocator(locator);
-    }
+//    public static WebElement findElement(By locator) {
+//        return Waiter.waitElementToBeDisplayedByLocator(locator);
+//    }
+//
+//    public static List<WebElement> findElements(By locator) {
+//        return Waiter.waitElementsToBeDisplayedByLocator(locator);
+//    }
 
     public static String getSecondOpenedTabUrl() {
         ArrayList<String> tabs = new ArrayList(DriverSingleton.getInstance().getDriver().getWindowHandles());
@@ -39,5 +36,9 @@ public class UiDriverActions {
         DriverSingleton.getInstance().getDriver().close();
         DriverSingleton.getInstance().getDriver().switchTo().window(tabs.get(0));
         return pageUrl;
+    }
+
+    public static boolean isNotDisplayed(By locator) {
+        return DriverSingleton.getInstance().getDriver().findElements(locator).size() == 0;
     }
 }

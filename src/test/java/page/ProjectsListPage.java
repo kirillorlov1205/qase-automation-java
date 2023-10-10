@@ -1,0 +1,88 @@
+package page;
+
+import driver.UiDriverActions;
+import elementsWrappers.Button;
+import elementsWrappers.Input;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import utils.Enums;
+import utils.Waiter;
+
+import java.util.List;
+
+public class ProjectsListPage extends BasePage {
+
+    private static final String PROJECTS_LIST_PAGE_URL = "https://app.qase.io/projects";
+    private static final By CREATE_NEW_PROJECT_BUTTON_LOCATOR = By.xpath("//button[@id='createButton']");
+    private static final By PROJECT_NAME_LOCATOR = By.xpath("//input[@id='project-name']");
+    private static final By PROJECT_CODE_LOCATOR = By.xpath("//input[@id='project-code']");
+    private static final By PROJECT_DESCRIPTION_LOCATOR = By.xpath("//textarea[@name='description-" + "area']");
+    private static final By SUBMIT_PROJECT_CREATION_BUTTON_LOCATOR = By.xpath("//button[@type='submit']");
+    private static final String PROJECT_ACCESS_TYPE_BUTTON_LOCATOR = "//span[contains(text(),'%s')]";
+    private static final String PROJECT_DROPDOWN_BUTTON_LOCATOR = "//tr[%s]//a[contains(@class,'btn-dropdown')]";
+    private static final String REMOVE_PROJECT_BUTTON_LOCATOR = "//tr[%s]//button[contains(text(),'Delete')]";
+    private static final By SUBMIT_PROJECT_REMOVING_BUTTON_LOCATOR = By.xpath("//button[contains(@class," +
+            "'b_jd28')]");
+    private static final By PROJECTS_LIST_LOCATOR = By.xpath("//tr[@class='project-row']");
+
+    public boolean isProjectsPageDisplayed() {
+        return new Button(CREATE_NEW_PROJECT_BUTTON_LOCATOR).isDisplayed();
+    }
+
+    public ProjectsListPage clickCreateNewProjectButton() {
+        new Button(CREATE_NEW_PROJECT_BUTTON_LOCATOR).click();
+        return this;
+    }
+
+    public ProjectsListPage fillProjectName(String projectName) {
+        new Input(PROJECT_NAME_LOCATOR).writeText(projectName);
+        return this;
+    }
+
+    public ProjectsListPage fillProjectCode(String projectCode) {
+        new Input(PROJECT_CODE_LOCATOR).clear().writeText(projectCode);
+        return this;
+    }
+
+    public ProjectsListPage fillProjectDescription(String projectCode) {
+        new Input(PROJECT_DESCRIPTION_LOCATOR).writeText(projectCode);
+        return this;
+    }
+
+    public ProjectsListPage selectProjectAccessType(Enums.ProjectAccessTypes projectAccessType) {
+        new Button(By.xpath(String.format(PROJECT_ACCESS_TYPE_BUTTON_LOCATOR, projectAccessType))).click();
+        return this;
+    }
+
+    public ProjectsListPage submitProjectCreation() {
+        new Button(SUBMIT_PROJECT_CREATION_BUTTON_LOCATOR).click();
+        return this;
+    }
+
+    public List<WebElement> getProjectsList() {
+        return Waiter.waitElementsToBeDisplayedByLocator(PROJECTS_LIST_LOCATOR);
+    }
+
+    public String getProjectCodeValue() {
+        return Waiter.waitElementToBeDisplayedByLocator(PROJECT_CODE_LOCATOR).getAttribute("value");
+    }
+
+    public ProjectsListPage removeCreatedProjects() {
+        int projectsQuantity = Waiter.waitElementsToBeDisplayedByLocator(PROJECTS_LIST_LOCATOR).size();
+        for (int i = projectsQuantity; i > 0; i--) {
+            new Button(By.xpath(String.format(PROJECT_DROPDOWN_BUTTON_LOCATOR, i))).click();
+            new Button(By.xpath(String.format(REMOVE_PROJECT_BUTTON_LOCATOR, i))).click();
+            new Button(SUBMIT_PROJECT_REMOVING_BUTTON_LOCATOR).click();
+        }
+        return this;
+    }
+
+    public ProjectsListPage openProjectsListPage() {
+        UiDriverActions.openPage(PROJECTS_LIST_PAGE_URL);
+        return this;
+    }
+
+    public boolean isNewProjectCreated() {
+        return Waiter.waitElementsToBeDisplayedByLocator(SUBMIT_PROJECT_CREATION_BUTTON_LOCATOR).size() > 0;
+    }
+}

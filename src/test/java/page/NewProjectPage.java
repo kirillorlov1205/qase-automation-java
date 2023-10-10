@@ -1,5 +1,6 @@
 package page;
 
+import driver.UiDriverActions;
 import elementsWrappers.Heading;
 import org.openqa.selenium.By;
 
@@ -9,5 +10,9 @@ public class NewProjectPage extends BasePage {
 
     public String getNewProjectTitle() {
         return new Heading(NEW_PROJECT_TITLE).getText();
+    }
+
+    public boolean isNewProjectPageOpened() {
+        return !UiDriverActions.isNotDisplayed(NEW_PROJECT_TITLE);
     }
 }

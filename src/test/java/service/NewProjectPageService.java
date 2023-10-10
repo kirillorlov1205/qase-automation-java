@@ -12,4 +12,10 @@ public class NewProjectPageService {
         newProjectPage = new NewProjectPage();
         return newProjectPage.getNewProjectTitle();
     }
+
+    @Step("Verifying if new project page opened")
+    public boolean isNewProjectPageOpened() {
+        newProjectPage = new NewProjectPage();
+        return newProjectPage.isNewProjectPageOpened();
+    }
 }

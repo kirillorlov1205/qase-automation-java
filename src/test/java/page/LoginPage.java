@@ -18,6 +18,8 @@ public class LoginPage extends BasePage {
     private static final By LOGIN_VALIDATION_MESSAGE_LOCATOR = By.xpath("//span[@class='ic9QAx']");
     private static final By LOGIN_SSO__PAGE_HEADING_LOCATOR = By.xpath("//h1[contains(text(),'SSO Login')]");
     private static final String ADDITIONAL_LINK_LOCATOR = "//a[contains(text(),'%s')]";
+    private static final By LIVE_CHAT_BUTTON_LOCATOR = By.xpath("//button[contains(text(),'live chat')]");
+    private static final By LIVE_CHAT_IFRAME_LOCATOR = By.xpath("//iframe[@name='intercom-messenger-frame']");
 
     public LoginPage fillEmail(String userName) {
         new Input(EMAIL_FIELD_LOCATOR).writeText(userName);
@@ -29,9 +31,9 @@ public class LoginPage extends BasePage {
         return this;
     }
 
-    public ProjectsPage clickLoginButton() {
+    public ProjectsListPage clickLoginButton() {
         new Button(LOGIN_BUTTON_LOCATOR).click();
-        return new ProjectsPage();
+        return new ProjectsListPage();
     }
 
     public String getLoginValidationMessage() {
@@ -68,6 +70,15 @@ public class LoginPage extends BasePage {
     public LoginPage clickOnAdditionalLinkByName(String name) {
         new Link(By.xpath(String.format(ADDITIONAL_LINK_LOCATOR, name))).click();
         return this;
+    }
+
+    public LoginPage openLiveChat() {
+        new Button(LIVE_CHAT_BUTTON_LOCATOR).click();
+        return this;
+    }
+
+    public boolean isLiveChatOpened() {
+        return new Iframe(LIVE_CHAT_IFRAME_LOCATOR).isDisplayed();
     }
 
     public String getLoginPageUrl() {

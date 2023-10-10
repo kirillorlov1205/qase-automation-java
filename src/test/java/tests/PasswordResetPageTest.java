@@ -44,7 +44,7 @@ public class PasswordResetPageTest extends BaseTest {
     }
 
     @Test(description = "Verify wrong reset password email format validation", priority = 3, dataProvider = "Wrong " +
-            "format emails")
+            "format emails list")
     @Description("Wrong reset password email format validation")
     public void verifyWrongResetPasswordEmailFormatValidation(String email) {
         String actualValidationMessage = loginPageService
@@ -73,15 +73,22 @@ public class PasswordResetPageTest extends BaseTest {
         Assert.assertTrue(loginPageService.isSsoLoginPageOpened(), "Login page hasn't been opened");
     }
 
-    @DataProvider(name = "Wrong format emails")
+    @DataProvider(name = "Wrong format emails list")
     public Object[][] wrongFormatEmailsList() {
-        return new Object[][]
-                {
-                        {"abc.def@mail#archive.com"},
-                        {"abc..def@mail.com"},
-                        {".abc@mail.com"},
-                        {"abc.def@mail"},
-                        {"abc.def@mail..com"}
-                };
+        return new Object[][]{
+                {"abc.def@mail#archive.com"},
+                {"abc..def@mail.com"},
+                {".abc@mail.com"},
+                {"abc.def@mail"},
+                {"abc.def@mail..com"},
+                {"email.domain.com"},
+                {"email@domain@domain.com"},
+                {"email.@domain.com"},
+                {"mail@-domain.com"},
+                {"あいうえお@domain.com"},
+                {"@domain.com"},
+                {"<script>alert(123)</script>"},
+                {"xxx@xxx.xxx' OR 1 = 1 LIMIT 1 -- ' ]"},
+        };
     }
 }
