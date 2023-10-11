@@ -2,6 +2,7 @@ package tests;
 
 import io.qameta.allure.Description;
 import model.Constants;
+import model.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
@@ -22,7 +23,7 @@ public class PasswordResetPageTest extends BaseTest {
     public void verifySuccessfulPasswordReset() {
         String actualValidationMessage = loginPageService
                 .clickForgotPasswordButton()
-                .fillEmail(Constants.USER_WITH_VALID_CREDENTIALS.getEmail())
+                .fillEmail(new User().getEmail())
                 .clickSendResetLinkButton()
                 .getValidationMessage();
         String expectedValidationMessage = Constants.SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE;
@@ -33,9 +34,10 @@ public class PasswordResetPageTest extends BaseTest {
     @Test(description = "Verify wrong reset password email validation", priority = 2)
     @Description("Wrong reset password email validation")
     public void verifyWrongResetPasswordEmailValidation() {
+        User userWithWrongEmail = new User("wrongEmail@gmail.com", "TestingPass1!");
         String actualValidationMessage = loginPageService
                 .clickForgotPasswordButton()
-                .fillEmail(Constants.USER_WITH_WRONG_EMAIL.getEmail())
+                .fillEmail(userWithWrongEmail.getEmail())
                 .clickSendResetLinkButton()
                 .getValidationMessage();
         String expectedValidationMessage = Constants.USER_NOT_FOUND_VALIDATION_MESSAGE;

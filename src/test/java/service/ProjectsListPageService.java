@@ -1,9 +1,11 @@
 package service;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import model.Project;
 import page.ProjectsListPage;
 
+@Log4j2
 public class ProjectsListPageService {
 
     private ProjectsListPage projectsListPage;
@@ -16,6 +18,7 @@ public class ProjectsListPageService {
 
     @Step("Creating a new project")
     public NewProjectPageService createNewProject(Project project) {
+        log.info("Create new project");
         projectsListPage = new ProjectsListPage();
         projectsListPage.clickCreateNewProjectButton()
                 .fillProjectName(project.getProjectName())
@@ -38,11 +41,5 @@ public class ProjectsListPageService {
         projectsListPage = new ProjectsListPage();
         projectsListPage.openProjectsListPage();
         return this;
-    }
-
-    @Step("Getting project code field value")
-    public String getProjectCodeFieldValue() {
-        projectsListPage = new ProjectsListPage();
-        return projectsListPage.getProjectCodeValue();
     }
 }

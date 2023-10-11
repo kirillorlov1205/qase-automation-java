@@ -21,14 +21,6 @@ public class UiDriverActions {
         DriverSingleton.getInstance().getDriver().get(url);
     }
 
-//    public static WebElement findElement(By locator) {
-//        return Waiter.waitElementToBeDisplayedByLocator(locator);
-//    }
-//
-//    public static List<WebElement> findElements(By locator) {
-//        return Waiter.waitElementsToBeDisplayedByLocator(locator);
-//    }
-
     public static String getSecondOpenedTabUrl() {
         ArrayList<String> tabs = new ArrayList(DriverSingleton.getInstance().getDriver().getWindowHandles());
         DriverSingleton.getInstance().getDriver().switchTo().window(tabs.get(1));

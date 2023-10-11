@@ -8,8 +8,4 @@ public class Constants {
     public static final String SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE = "We have e-mailed your password reset " +
             "link!";
     public static final String USER_NOT_FOUND_VALIDATION_MESSAGE = "User not found.";
-    public static final User USER_WITH_VALID_CREDENTIALS = new User();
-    public static final User USER_WITH_WRONG_EMAIL = new User("wrongEmail@gmail.com", "TestingPass1!");
-    public static final User USER_WITH_EMPTY_EMAIL = new User("", "TestingPass1!");
-    public static final User USER_WITH_EMPTY_PASSWORD = new User("test12051@mail.ru", "");
 }

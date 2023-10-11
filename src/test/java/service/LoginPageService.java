@@ -1,15 +1,18 @@
 package service;
 
 import io.qameta.allure.Step;
+import lombok.extern.log4j.Log4j2;
 import model.User;
 import page.LoginPage;
 
+@Log4j2
 public class LoginPageService {
 
     private LoginPage loginPage;
 
     @Step("log in to the system")
     public ProjectsListPageService login(User user) {
+        log.info("Log in to the system");
         loginPage = new LoginPage();
         loginPage.openLoginPage()
                 .fillEmail(user.getEmail())

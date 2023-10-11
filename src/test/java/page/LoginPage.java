@@ -2,9 +2,11 @@ package page;
 
 import driver.UiDriverActions;
 import elementsWrappers.*;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import utils.Waiter;
 
+@Log4j2
 public class LoginPage extends BasePage {
 
     private static final String LOGIN_PAGE_URL = "https://app.qase.io/login";
@@ -22,16 +24,19 @@ public class LoginPage extends BasePage {
     private static final By LIVE_CHAT_IFRAME_LOCATOR = By.xpath("//iframe[@name='intercom-messenger-frame']");
 
     public LoginPage fillEmail(String userName) {
+        log.info("Fill email field");
         new Input(EMAIL_FIELD_LOCATOR).writeText(userName);
         return this;
     }
 
     public LoginPage fillPassword(String password) {
+        log.info("Fill password field");
         new Input(PASSWORD_FIELD_LOCATOR).writeText(password);
         return this;
     }
 
     public ProjectsListPage clickLoginButton() {
+        log.info("Click login button");
         new Button(LOGIN_BUTTON_LOCATOR).click();
         return new ProjectsListPage();
     }
@@ -50,11 +55,13 @@ public class LoginPage extends BasePage {
     }
 
     public PasswordResetPage clickForgotPasswordButton() {
+        log.info("Click forgot password button");
         new Button(FORGOT_PASSWORD_BUTTON_LOCATOR).click();
         return new PasswordResetPage();
     }
 
     public LoginPage openLoginPage() {
+        log.info("Open Login page");
         UiDriverActions.openPage(LOGIN_PAGE_URL);
         return this;
     }
@@ -68,11 +75,13 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage clickOnAdditionalLinkByName(String name) {
+        log.info(String.format("Click on additional link by name '%s'", name));
         new Link(By.xpath(String.format(ADDITIONAL_LINK_LOCATOR, name))).click();
         return this;
     }
 
     public LoginPage openLiveChat() {
+        log.info("Open live chat");
         new Button(LIVE_CHAT_BUTTON_LOCATOR).click();
         return this;
     }

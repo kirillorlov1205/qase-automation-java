@@ -1,8 +1,8 @@
 package tests;
 
 import io.qameta.allure.Description;
-import model.Constants;
 import model.Project;
+import model.User;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -38,10 +38,11 @@ public class ProjectsListPageTest extends BaseTest {
     public void verifySuccessfulProjectCreation() {
         Project project = new Project();
         String actualProjectTitle = loginPageService
-                .login(Constants.USER_WITH_VALID_CREDENTIALS)
+                .login(new User())
                 .createNewProject(project)
                 .getNewProjectTitle();
-        Assert.assertTrue(actualProjectTitle.contains(project.getProjectCode().toUpperCase()), "New project hasn't been created");
+        Assert.assertTrue(actualProjectTitle.contains(project.getProjectCode().toUpperCase()), "New project " +
+                "hasn't been created");
     }
 
     @Test(description = "Verify empty project name validation", priority = 2)

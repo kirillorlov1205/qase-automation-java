@@ -3,13 +3,12 @@ package page;
 import driver.UiDriverActions;
 import elementsWrappers.Button;
 import elementsWrappers.Input;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
 import utils.Enums;
 import utils.Waiter;
 
-import java.util.List;
-
+@Log4j2
 public class ProjectsListPage extends BasePage {
 
     private static final String PROJECTS_LIST_PAGE_URL = "https://app.qase.io/projects";
@@ -30,44 +29,43 @@ public class ProjectsListPage extends BasePage {
     }
 
     public ProjectsListPage clickCreateNewProjectButton() {
+        log.info("Click create new project button");
         new Button(CREATE_NEW_PROJECT_BUTTON_LOCATOR).click();
         return this;
     }
 
     public ProjectsListPage fillProjectName(String projectName) {
+        log.info("Fill project name");
         new Input(PROJECT_NAME_LOCATOR).writeText(projectName);
         return this;
     }
 
     public ProjectsListPage fillProjectCode(String projectCode) {
+        log.info("Fill project code");
         new Input(PROJECT_CODE_LOCATOR).clear().writeText(projectCode);
         return this;
     }
 
     public ProjectsListPage fillProjectDescription(String projectCode) {
+        log.info("Fill project description");
         new Input(PROJECT_DESCRIPTION_LOCATOR).writeText(projectCode);
         return this;
     }
 
     public ProjectsListPage selectProjectAccessType(Enums.ProjectAccessTypes projectAccessType) {
+        log.info("Select project access type");
         new Button(By.xpath(String.format(PROJECT_ACCESS_TYPE_BUTTON_LOCATOR, projectAccessType))).click();
         return this;
     }
 
     public ProjectsListPage submitProjectCreation() {
+        log.info("Submit project creation");
         new Button(SUBMIT_PROJECT_CREATION_BUTTON_LOCATOR).click();
         return this;
     }
 
-    public List<WebElement> getProjectsList() {
-        return Waiter.waitElementsToBeDisplayedByLocator(PROJECTS_LIST_LOCATOR);
-    }
-
-    public String getProjectCodeValue() {
-        return Waiter.waitElementToBeDisplayedByLocator(PROJECT_CODE_LOCATOR).getAttribute("value");
-    }
-
     public ProjectsListPage removeCreatedProjects() {
+        log.info("Remove created projects");
         int projectsQuantity = Waiter.waitElementsToBeDisplayedByLocator(PROJECTS_LIST_LOCATOR).size();
         for (int i = projectsQuantity; i > 0; i--) {
             new Button(By.xpath(String.format(PROJECT_DROPDOWN_BUTTON_LOCATOR, i))).click();
@@ -78,6 +76,7 @@ public class ProjectsListPage extends BasePage {
     }
 
     public ProjectsListPage openProjectsListPage() {
+        log.info("Open projects list page");
         UiDriverActions.openPage(PROJECTS_LIST_PAGE_URL);
         return this;
     }

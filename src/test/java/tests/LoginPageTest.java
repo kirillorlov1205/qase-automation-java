@@ -23,14 +23,15 @@ public class LoginPageTest extends BaseTest {
     @Test(description = "Verify successful login with valid credentials", priority = 1)
     @Description("Login with valid credentials")
     public void verifySuccessfulLoginWithValidCredentials() {
-        ProjectsListPageService projectsListPageService = loginPageService.login(Constants.USER_WITH_VALID_CREDENTIALS);
+        ProjectsListPageService projectsListPageService = loginPageService.login(new User());
         Assert.assertTrue(projectsListPageService.isProjectsPageDisplayed(), "Login failed");
     }
 
     @Test(description = "Verify wrong email validation", priority = 2)
     @Description("Wrong email validation")
     public void verifyWrongEmailValidation() {
-        loginPageService.login(Constants.USER_WITH_WRONG_EMAIL);
+        User userWithWrongEmail = new User("wrongEmail@gmail.com", "TestingPass1!");
+        loginPageService.login(userWithWrongEmail);
         String actualValidationMessage = loginPageService.getLoginValidationMessage();
         String expectedValidationMessage = Constants.INVALID_CREDENTIALS_VALIDATION_MESSAGE;
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
@@ -51,7 +52,8 @@ public class LoginPageTest extends BaseTest {
     @Test(description = "Verify empty email validation", priority = 4)
     @Description("Empty email validation")
     public void verifyEmptyEmailValidation() {
-        loginPageService.login(Constants.USER_WITH_EMPTY_EMAIL);
+        User userWithEmptyEmail = new User("", "TestingPass1!");
+        loginPageService.login(userWithEmptyEmail);
         Assert.assertTrue(loginPageService.isEmptyEmailValidationMessageDisplayed(), "Empty email " +
                 "validation message hasn't been shown");
     }
@@ -59,7 +61,8 @@ public class LoginPageTest extends BaseTest {
     @Test(description = "Verify empty password validation", priority = 5)
     @Description("Empty password validation")
     public void verifyEmptyPasswordValidation() {
-        loginPageService.login(Constants.USER_WITH_EMPTY_PASSWORD);
+        User userWithEmptyPassword = new User("test12051@mail.ru", "");
+        loginPageService.login(userWithEmptyPassword);
         Assert.assertTrue(loginPageService.isEmptyPasswordValidationMessageDisplayed(), "Empty password " +
                 "validation message hasn't been shown");
     }
