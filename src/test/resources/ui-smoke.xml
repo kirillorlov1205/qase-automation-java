@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="Smoke" parallel="tests" thread-count="2">
+<suite name="UI smoke test" parallel="tests" thread-count="3">
     <test name="Login page test">
         <classes>
             <class name="tests.LoginPageTest"/>
@@ -10,6 +10,11 @@
     <test name="Password reset page test">
         <classes>
             <class name="tests.PasswordResetPageTest"/>
+        </classes>
+    </test>
+    <test name="Projects list page test">
+        <classes>
+            <class name="tests.ProjectsListPageTest"/>
         </classes>
     </test>
 </suite>

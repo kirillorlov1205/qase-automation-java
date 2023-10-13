@@ -1,13 +1,13 @@
 package model;
 
 import utils.Enums;
-import utils.Utils;
+import utils.TestDataGenerator;
 
 public class Project {
 
-    private String projectName = Utils.getRandomString(9);
-    private String projectCode = Utils.getRandomString(9);
-    private String projectDescription = Utils.getRandomString(9);
+    private String projectName = TestDataGenerator.generateRandomString(2, 10);
+    private String projectCode = TestDataGenerator.generateRandomString(2, 10);
+    private String projectDescription = TestDataGenerator.generateRandomString(10, 20);
     private Enums.ProjectAccessTypes projectAccessType = Enums.ProjectAccessTypes.Public;
 
     public Project(String projectName, String projectCode, String projectDescription, Enums.ProjectAccessTypes

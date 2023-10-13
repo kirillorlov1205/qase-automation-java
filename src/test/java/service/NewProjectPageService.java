@@ -13,9 +13,15 @@ public class NewProjectPageService {
         return newProjectPage.getNewProjectTitle();
     }
 
-    @Step("Verifying if new project page opened")
-    public boolean isNewProjectPageOpened() {
+//    @Step("Verifying if new project page opened")
+//    public boolean isNewProjectPageOpened() {
+//        newProjectPage = new NewProjectPage();
+//        return newProjectPage.isNewProjectPageOpened();
+//    }
+
+    @Step("Verifying if new project page not opened")
+    public boolean isNewProjectPageNotOpened() {
         newProjectPage = new NewProjectPage();
-        return newProjectPage.isNewProjectPageOpened();
+        return newProjectPage.isNewProjectPageNotOpened();
     }
 }

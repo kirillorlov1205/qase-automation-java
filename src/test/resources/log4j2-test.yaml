@@ -21,7 +21,7 @@ Configuration:
     logger:
       -
         name: consoleLogger
-        level: INFO
+        level: DEBUG
         additivity: true
         AppenderRef:
           ref: consoleAppender
@@ -32,9 +32,9 @@ Configuration:
         AppenderRef:
           ref: fileAppender
     Root:
-      level: INFO
+      level: DEBUG
       AppenderRef:
         - ref: consoleAppender
-          level: INFO
+          level: DEBUG
         - ref: fileAppender
           level: INFO

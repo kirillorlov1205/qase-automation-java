@@ -42,4 +42,23 @@ public class ProjectsListPageService {
         projectsListPage.openProjectsListPage();
         return this;
     }
+
+    @Step("Getting invalid code validation message")
+    public String getInvalidCodeValidationMessage() {
+        projectsListPage = new ProjectsListPage();
+        return projectsListPage.getInvalidCodeValidationMessage();
+    }
+
+
+    @Step("Verifying if project code field empty")
+    public boolean isProjectCodeFieldEmpty() {
+        projectsListPage = new ProjectsListPage();
+        return projectsListPage.isProjectCodeFieldEmpty();
+    }
+
+    @Step("Verifying if private member access displayed")
+    public boolean isPrivateMemberAccessDisplayed() {
+        projectsListPage = new ProjectsListPage();
+        return projectsListPage.isPrivateMemberAccessDisplayed();
+    }
 }

@@ -10,8 +10,8 @@ import java.util.concurrent.TimeUnit;
 public class TestListener implements ITestListener {
 
     public void onTestFailure(ITestResult iTestResult) {
-        log.info(String.format("==================== FAILED TEST %s Duration: %ss ====================",
-                iTestResult.getName(), getExecutionTime(iTestResult)));
+        log.info(String.format("==================== FAILED TEST %s Duration: %ss ====================", iTestResult
+                .getName(), getExecutionTime(iTestResult)));
         AllureUtils.takeScreenshot();
     }
 

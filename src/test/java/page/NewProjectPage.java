@@ -1,18 +1,23 @@
 package page;
 
-import driver.UiDriverActions;
-import elementsWrappers.Heading;
-import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindBy;
+import utils.Waiter;
 
 public class NewProjectPage extends BasePage {
 
-    private static final By NEW_PROJECT_TITLE = By.xpath("//h1[@class='fGDnu0']");
+    @FindBy(xpath = "//h1[@class='fGDnu0']")
+    private WebElement newProjectTitle;
 
     public String getNewProjectTitle() {
-        return new Heading(NEW_PROJECT_TITLE).getText();
+        return Waiter.waitElementToBeDisplayed(newProjectTitle).getText();
     }
+//
+//    public boolean isNewProjectPageOpened() {
+//        return Waiter.waitElementToBeDisplayed(newProjectTitle).isDisplayed();
+//    }
 
-    public boolean isNewProjectPageOpened() {
-        return !UiDriverActions.isNotDisplayed(NEW_PROJECT_TITLE);
+    public boolean isNewProjectPageNotOpened() {
+        return Waiter.waitElementToBeNotDisplayed(newProjectTitle);
     }
 }
