@@ -1,7 +1,6 @@
 package page;
 
 import driver.DriverSingleton;
-import driver.UiDriverActions;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.PageFactory;
 
@@ -11,9 +10,5 @@ public abstract class BasePage {
 
     protected BasePage() {
         PageFactory.initElements(driver, this);
-    }
-
-    public void openPage(String url) {
-        UiDriverActions.openPage(url);
     }
 }

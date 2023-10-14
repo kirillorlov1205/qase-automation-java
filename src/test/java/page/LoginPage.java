@@ -1,23 +1,34 @@
 package page;
 
 import driver.UiDriverActions;
-import elementsWrappers.Button;
-import elementsWrappers.Input;
+import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import utils.Waiter;
 
+@Log4j2
 public class LoginPage extends BasePage {
 
     private static final String LOGIN_PAGE_URL = "https://app.qase.io/login";
-    private static final By EMAIL_FIELD_LOCATOR = By.xpath("//input[@name='email']");
-    private static final By PASSWORD_FIELD_LOCATOR = By.xpath("//input[@name='password']");
-    private static final By LOGIN_BUTTON_LOCATOR = By.xpath("//button[@type='submit']");
-    private static final String EMPTY_FIELD_VALIDATION_MESSAGE_LOCATOR = "//input[@name='%s']" +
-            "//ancestor::div[@class='tdishH']//small";
-    private static final String WRONG_EMAIL_FORMAT_VALIDATION_MESSAGE_LOCATOR = "//span[@class='ic9QAx']";
-    private static final String FORGOT_PASSWORD_BUTTON_LOCATOR = "//a[contains(text(),'Forgot password?')]";
+    private static final String EMPTY_FIELD_VALIDATION_MESSAGE = "//input[@name='%s']//ancestor::div[@class='tdishH']" +
+            "//small";
+    private static final String ADDITIONAL_LINK = "//a[contains(text(),'%s')]";
+
+    @FindBy(xpath = "//input[@name='email']")
+    private WebElement emailField;
+
+    @FindBy(xpath = "//input[@name='password']")
+    private WebElement passwordField;
+
+    @FindBy(xpath = "//button[@type='submit']")
+    private WebElement loginButton;
+
+    @FindBy(xpath = "//span[@class='ic9QAx']")
+    private WebElement wrongEmailFormatValidationMessage;
+
+    @FindBy(xpath = "//a[contains(text(),'Forgot password?')]")
+    private WebElement forgotPasswordButton;
 
     @FindBy(xpath = "//span[@class='ic9QAx']")
     private WebElement loginValidationMessage;
@@ -25,49 +36,80 @@ public class LoginPage extends BasePage {
     @FindBy(xpath = "//h1[contains(text(),'SSO Login')]")
     private WebElement loginSsoPageHeading;
 
+    @FindBy(xpath = "//button[contains(text(),'live chat')]")
+    private WebElement liveChatButton;
+
+    @FindBy(xpath = "//iframe[@name='intercom-messenger-frame']")
+    private WebElement liveChatIframe;
+
     public LoginPage fillEmail(String userName) {
-        new Input(EMAIL_FIELD_LOCATOR).writeText(userName);
+        log.info("Fill email field");
+        Waiter.waitElementToBeDisplayed(emailField).sendKeys(userName);
         return this;
     }
 
     public LoginPage fillPassword(String password) {
-        new Input(PASSWORD_FIELD_LOCATOR).writeText(password);
+        log.info("Fill password field");
+        Waiter.waitElementToBeDisplayed(passwordField).sendKeys(password);
         return this;
     }
 
-    public void clickLoginButton() {
-        new Button(LOGIN_BUTTON_LOCATOR).click();
+    public ProjectsListPage clickLoginButton() {
+        log.info("Click login button");
+        Waiter.waitElementToBeDisplayed(loginButton).click();
+        return new ProjectsListPage();
     }
 
     public String getLoginValidationMessage() {
-        return loginValidationMessage.getText();
+        return Waiter.waitElementToBeDisplayed(loginValidationMessage).getText();
     }
 
     public boolean isEmptyFieldValidationMessageDisplayed(String type) {
-        return Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(EMPTY_FIELD_VALIDATION_MESSAGE_LOCATOR,
-                type))).isDisplayed();
+        return Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(EMPTY_FIELD_VALIDATION_MESSAGE, type)))
+                .isDisplayed();
     }
 
     public String getWrongEmailFormatValidationMessage() {
-        return Waiter.waitElementToBeDisplayedByLocator(By.xpath(WRONG_EMAIL_FORMAT_VALIDATION_MESSAGE_LOCATOR))
-                .getText();
+        return Waiter.waitElementToBeDisplayed(wrongEmailFormatValidationMessage).getText();
     }
 
     public PasswordResetPage clickForgotPasswordButton() {
-        new Button(By.xpath(FORGOT_PASSWORD_BUTTON_LOCATOR)).click();
+        log.info("Click forgot password button");
+        Waiter.waitElementToBeDisplayed(forgotPasswordButton).click();
         return new PasswordResetPage();
     }
 
     public LoginPage openLoginPage() {
+        log.info("Open Login page");
         UiDriverActions.openPage(LOGIN_PAGE_URL);
         return this;
     }
 
     public boolean isLoginPageOpened() {
-        return new Button(LOGIN_BUTTON_LOCATOR).isDisplayed();
+        return Waiter.waitElementToBeDisplayed(loginButton).isDisplayed();
     }
 
     public boolean isSsoLoginPageOpened() {
         return Waiter.waitElementToBeDisplayed(loginSsoPageHeading).isDisplayed();
+    }
+
+    public LoginPage clickOnAdditionalLinkByName(String name) {
+        log.info(String.format("Click on additional link by name '%s'", name));
+        Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(ADDITIONAL_LINK, name))).click();
+        return this;
+    }
+
+    public LoginPage openLiveChat() {
+        log.info("Open live chat");
+        Waiter.waitElementToBeDisplayed(liveChatButton).click();
+        return this;
+    }
+
+    public boolean isLiveChatOpened() {
+        return Waiter.waitElementToBeDisplayed(liveChatIframe).isDisplayed();
+    }
+
+    public String getLoginPageUrl() {
+        return LOGIN_PAGE_URL;
     }
 }
