@@ -59,16 +59,16 @@ public class PasswordResetPageTest extends BaseTest {
                 "match expected");
     }
 
-    @Test(description = "Verify navigation to Login page", priority = 4)
-    @Description("Navigation to Login page")
+    @Test(description = "Verify navigation to 'Login page'", priority = 4)
+    @Description("Navigation to 'Login page'")
     public void verifyNavigationToLoginPage() {
         loginPageService.clickForgotPasswordButton()
                 .clickNavigateToLoginPageButton();
-        Assert.assertTrue(loginPageService.isLoginPageOpened(), "Login page hasn't been opened");
+        Assert.assertTrue(loginPageService.isLoginPageOpened(), "Login page not opened");
     }
 
     @Test(description = "Verify navigation to SSO Login page", priority = 4)
-    @Description("Navigation to SSO Login page")
+    @Description("Navigation to 'SSO Login page'")
     public void verifyNavigationToSsoLoginPage() {
         loginPageService.clickForgotPasswordButton()
                 .clickNavigateToSsoLoginPageButton();

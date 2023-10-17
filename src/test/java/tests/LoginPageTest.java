@@ -79,7 +79,7 @@ public class LoginPageTest extends BaseTest {
                 "match expected");
     }
 
-    @Test(description = "Verify additional link transferring", priority = 7, dataProvider = "Additional links")
+    @Test(description = "Verify additional link transferring", priority = 7, dataProvider = "Additional links list")
     @Description("Additional link transferring")
     public void verifyAdditionalLinkTransferring(String linkName, String expectedPageUrl) {
         loginPageService.openLoginPage()
@@ -93,7 +93,7 @@ public class LoginPageTest extends BaseTest {
     public void verifyLiveChatOpening() {
         loginPageService.openLoginPage()
                 .openLiveChat();
-        Assert.assertTrue(loginPageService.isLiveChatOpened(), "Live chat hasn't been opened");
+        Assert.assertTrue(loginPageService.isLiveChatOpened(), "Live chat not opened");
     }
 
     @DataProvider(name = "Wrong format emails list")
@@ -125,7 +125,7 @@ public class LoginPageTest extends BaseTest {
         };
     }
 
-    @DataProvider(name = "Additional links")
+    @DataProvider(name = "Additional links list")
     public Object[][] additionalLinksList() {
         return new Object[][]
                 {

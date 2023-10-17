@@ -36,4 +36,14 @@ public class Project {
     public Enums.ProjectAccessTypes getProjectAccessType() {
         return projectAccessType;
     }
+
+    @Override
+    public String toString() {
+        return "Project{" +
+                "projectName='" + projectName + '\'' +
+                ", projectCode='" + projectCode + '\'' +
+                ", projectDescription='" + projectDescription + '\'' +
+                ", projectAccessType=" + projectAccessType +
+                '}';
+    }
 }

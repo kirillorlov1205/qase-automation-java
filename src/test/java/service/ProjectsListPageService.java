@@ -10,15 +10,15 @@ public class ProjectsListPageService {
 
     private ProjectsListPage projectsListPage;
 
-    @Step("Verify if projects page is displayed")
+    @Step("Verify if projects page displayed")
     public boolean isProjectsPageDisplayed() {
         projectsListPage = new ProjectsListPage();
         return projectsListPage.isProjectsPageDisplayed();
     }
 
     @Step("Creating a new project")
-    public NewProjectPageService createNewProject(Project project) {
-        log.info("Create new project");
+    public ProjectPageService createNewProject(Project project) {
+        log.info("Create a new project");
         projectsListPage = new ProjectsListPage();
         projectsListPage.clickCreateNewProjectButton()
                 .fillProjectName(project.getProjectName())
@@ -26,7 +26,7 @@ public class ProjectsListPageService {
                 .fillProjectDescription(project.getProjectDescription())
                 .selectProjectAccessType(project.getProjectAccessType())
                 .submitProjectCreation();
-        return new NewProjectPageService();
+        return new ProjectPageService();
     }
 
     @Step("Removing created project")
@@ -36,7 +36,7 @@ public class ProjectsListPageService {
         return this;
     }
 
-    @Step("Opening projects list page")
+    @Step("Opening 'Projects list' page")
     public ProjectsListPageService openProjectsListPage() {
         projectsListPage = new ProjectsListPage();
         projectsListPage.openProjectsListPage();
@@ -48,7 +48,6 @@ public class ProjectsListPageService {
         projectsListPage = new ProjectsListPage();
         return projectsListPage.getInvalidCodeValidationMessage();
     }
-
 
     @Step("Verifying if project code field empty")
     public boolean isProjectCodeFieldEmpty() {

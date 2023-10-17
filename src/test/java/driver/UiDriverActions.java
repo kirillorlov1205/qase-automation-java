@@ -1,16 +1,10 @@
 package driver;
 
-import org.openqa.selenium.By;
-
 import java.util.ArrayList;
 
 public class UiDriverActions {
 
     private UiDriverActions() {
-    }
-
-    public static String getTitle() {
-        return DriverSingleton.getInstance().getDriver().getTitle();
     }
 
     public static String getCurrentUrl() {
@@ -30,7 +24,7 @@ public class UiDriverActions {
         return pageUrl;
     }
 
-    public static boolean isNotDisplayed(By locator) {
-        return DriverSingleton.getInstance().getDriver().findElements(locator).size() == 0;
+    public static void acceptAlert() {
+        DriverSingleton.getInstance().getDriver().switchTo().alert().accept();
     }
 }

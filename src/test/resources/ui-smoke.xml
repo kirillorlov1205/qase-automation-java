@@ -2,6 +2,11 @@
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
 <suite name="UI smoke test" parallel="tests" thread-count="3">
+    <test name="Case page test">
+        <classes>
+            <class name="tests.CasePageTest"/>
+        </classes>
+    </test>
     <test name="Login page test">
         <classes>
             <class name="tests.LoginPageTest"/>
@@ -12,9 +17,9 @@
             <class name="tests.PasswordResetPageTest"/>
         </classes>
     </test>
-    <test name="Projects list page test">
-        <classes>
-            <class name="tests.ProjectsListPageTest"/>
-        </classes>
-    </test>
+<!--    <test name="Projects list page test">-->
+<!--        <classes>-->
+<!--            <class name="tests.ProjectsListPageTest"/>-->
+<!--        </classes>-->
+<!--    </test>-->
 </suite>

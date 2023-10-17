@@ -51,34 +51,33 @@ public class ProjectsListPage extends BasePage {
     }
 
     public ProjectsListPage clickCreateNewProjectButton() {
-        log.info("Click create new project button");
+        log.info("Click 'Create new project' button");
         Waiter.waitElementToBeDisplayed(createNewProjectButton).click();
         return this;
     }
 
     public ProjectsListPage fillProjectName(String projectName) {
-        log.info("Fill project name");
-        Waiter.waitElementToBeDisplayed(projectNameField).sendKeys(projectName);
+        log.info("Fill 'Project name'");
+        projectNameField.sendKeys(projectName);
         return this;
     }
 
     public ProjectsListPage fillProjectCode(String projectCode) {
-        log.info("Fill project code");
-        Waiter.waitElementToBeDisplayed(projectCodeField).clear();
+        log.info("Fill 'Project code'");
+        projectCodeField.clear();
         Waiter.waitElementAttributeToBe(projectCodeField, "value", "");
-//        projectCodeField.getAttribute("value").isEmpty();
         projectCodeField.sendKeys(projectCode);
         return this;
     }
 
     public ProjectsListPage fillProjectDescription(String projectCode) {
-        log.info("Fill project description");
-        Waiter.waitElementToBeDisplayed(projectDescriptionField).sendKeys(projectCode);
+        log.info("Fill 'Project description'");
+        projectDescriptionField.sendKeys(projectCode);
         return this;
     }
 
     public ProjectsListPage selectProjectAccessType(Enums.ProjectAccessTypes projectAccessType) {
-        log.info("Select project access type");
+        log.info(String.format("Select project access type: '%s'", projectAccessType));
         Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(PROJECT_ACCESS_TYPE_BUTTON, projectAccessType))
         ).click();
         return this;
@@ -86,7 +85,7 @@ public class ProjectsListPage extends BasePage {
 
     public ProjectsListPage submitProjectCreation() {
         log.info("Submit project creation");
-        Waiter.waitElementToBeDisplayed(submitProjectCreationButton).click();
+        submitProjectCreationButton.click();
         return this;
     }
 
@@ -107,27 +106,28 @@ public class ProjectsListPage extends BasePage {
     }
 
     public ProjectsListPage removeCreatedProjectByIndex(int index) {
+        log.info(String.format("Remove project with index '%s'", index));
         Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(PROJECT_DROPDOWN_BUTTON, index))).click();
         Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(REMOVE_PROJECT_BUTTON, index))).click();
-        Waiter.waitElementToBeDisplayed(submitProjectRemovingButton).click();
+        submitProjectRemovingButton.click();
         return this;
     }
 
     public ProjectsListPage openProjectsListPage() {
-        log.info("Open projects list page");
+        log.info("Open 'Projects list' page");
         UiDriverActions.openPage(PROJECTS_LIST_PAGE_URL);
         return this;
     }
 
     public String getInvalidCodeValidationMessage() {
-        return Waiter.waitElementToBeDisplayed(invalidCodeValidationMessage).getText();
+        return invalidCodeValidationMessage.getText();
     }
 
     public boolean isProjectCodeFieldEmpty() {
-        return Waiter.waitElementToBeDisplayed(projectCodeField).getAttribute("value").isEmpty();
+        return projectCodeField.getAttribute("value").isEmpty();
     }
 
     public boolean isPrivateMemberAccessDisplayed() {
-        return Waiter.waitElementToBeDisplayed(privateMemberAccess).isDisplayed();
+        return privateMemberAccess.isDisplayed();
     }
 }
