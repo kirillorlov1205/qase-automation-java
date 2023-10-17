@@ -43,25 +43,25 @@ public class LoginPage extends BasePage {
     private WebElement liveChatIframe;
 
     public LoginPage fillEmail(String userName) {
-        log.info("Fill email field");
-        Waiter.waitElementToBeDisplayed(emailField).sendKeys(userName);
+        log.info("Fill 'Email' field");
+        emailField.sendKeys(userName);
         return this;
     }
 
     public LoginPage fillPassword(String password) {
-        log.info("Fill password field");
-        Waiter.waitElementToBeDisplayed(passwordField).sendKeys(password);
+        log.info("Fill 'Password' field");
+        passwordField.sendKeys(password);
         return this;
     }
 
     public ProjectsListPage clickLoginButton() {
-        log.info("Click login button");
-        Waiter.waitElementToBeDisplayed(loginButton).click();
+        log.info("Click 'Login' button");
+        loginButton.click();
         return new ProjectsListPage();
     }
 
     public String getLoginValidationMessage() {
-        return Waiter.waitElementToBeDisplayed(loginValidationMessage).getText();
+        return loginValidationMessage.getText();
     }
 
     public boolean isEmptyFieldValidationMessageDisplayed(String type) {
@@ -70,27 +70,27 @@ public class LoginPage extends BasePage {
     }
 
     public String getWrongEmailFormatValidationMessage() {
-        return Waiter.waitElementToBeDisplayed(wrongEmailFormatValidationMessage).getText();
+        return wrongEmailFormatValidationMessage.getText();
     }
 
     public PasswordResetPage clickForgotPasswordButton() {
-        log.info("Click forgot password button");
-        Waiter.waitElementToBeDisplayed(forgotPasswordButton).click();
+        log.info("Click 'Forgot password' button");
+        forgotPasswordButton.click();
         return new PasswordResetPage();
     }
 
     public LoginPage openLoginPage() {
-        log.info("Open Login page");
+        log.info("Open 'Login' page");
         UiDriverActions.openPage(LOGIN_PAGE_URL);
         return this;
     }
 
     public boolean isLoginPageOpened() {
-        return Waiter.waitElementToBeDisplayed(loginButton).isDisplayed();
+        return loginButton.isDisplayed();
     }
 
     public boolean isSsoLoginPageOpened() {
-        return Waiter.waitElementToBeDisplayed(loginSsoPageHeading).isDisplayed();
+        return loginSsoPageHeading.isDisplayed();
     }
 
     public LoginPage clickOnAdditionalLinkByName(String name) {
@@ -100,16 +100,12 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage openLiveChat() {
-        log.info("Open live chat");
-        Waiter.waitElementToBeDisplayed(liveChatButton).click();
+        log.info("Open Live chat");
+        liveChatButton.click();
         return this;
     }
 
     public boolean isLiveChatOpened() {
-        return Waiter.waitElementToBeDisplayed(liveChatIframe).isDisplayed();
-    }
-
-    public String getLoginPageUrl() {
-        return LOGIN_PAGE_URL;
+        return liveChatIframe.isDisplayed();
     }
 }

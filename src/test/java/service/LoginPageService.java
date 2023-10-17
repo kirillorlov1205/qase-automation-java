@@ -21,7 +21,7 @@ public class LoginPageService {
         return new ProjectsListPageService();
     }
 
-    @Step("Getting log in validation message")
+    @Step("Getting login validation message")
     public String getLoginValidationMessage() {
         loginPage = new LoginPage();
         return loginPage.getLoginValidationMessage();
@@ -45,7 +45,7 @@ public class LoginPageService {
         return loginPage.getWrongEmailFormatValidationMessage();
     }
 
-    @Step("Clicking forgot password button")
+    @Step("Clicking 'Forgot password' button")
     public PasswordResetPageService clickForgotPasswordButton() {
         loginPage = new LoginPage();
         loginPage.openLoginPage()
@@ -53,13 +53,13 @@ public class LoginPageService {
         return new PasswordResetPageService();
     }
 
-    @Step("Verifying if Login page opened")
+    @Step("Verifying if 'Login page' opened")
     public boolean isLoginPageOpened() {
         loginPage = new LoginPage();
         return loginPage.isLoginPageOpened();
     }
 
-    @Step("Verifying if SSO Login page opened")
+    @Step("Verifying if 'SSO Login page' opened")
     public boolean isSsoLoginPageOpened() {
         loginPage = new LoginPage();
         return loginPage.isSsoLoginPageOpened();
@@ -72,17 +72,11 @@ public class LoginPageService {
         return this;
     }
 
-    @Step("Opening login page")
+    @Step("Opening 'Login page'")
     public LoginPageService openLoginPage() {
         loginPage = new LoginPage();
         loginPage.openLoginPage();
         return this;
-    }
-
-    @Step("Getting login page url")
-    public String getLoginPageUrl() {
-        loginPage = new LoginPage();
-        return loginPage.getLoginPageUrl();
     }
 
     @Step("Opening live chat")

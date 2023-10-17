@@ -3,7 +3,6 @@ package page;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import utils.Waiter;
 
 @Log4j2
 public class PasswordResetPage extends BasePage {
@@ -24,30 +23,30 @@ public class PasswordResetPage extends BasePage {
     private WebElement navigateToSsoLoginPageButton;
 
     public PasswordResetPage fillEmail(String email) {
-        log.info("Fill email field");
-        Waiter.waitElementToBeDisplayed(emailField).sendKeys(email);
+        log.info("Fill 'Email' field");
+        emailField.sendKeys(email);
         return this;
     }
 
     public PasswordResetPage clickSendResetLinkButton() {
-        log.info("Click send reset link button");
-        Waiter.waitElementToBeDisplayed(sendResetLinkButton).click();
+        log.info("Click 'Send reset link' button");
+        sendResetLinkButton.click();
         return this;
     }
 
     public String getValidationMessage() {
-        return Waiter.waitElementToBeDisplayed(passwordResetValidationMessage).getText();
+        return passwordResetValidationMessage.getText();
     }
 
     public LoginPage clickNavigateToLoginPageButton() {
-        log.info("Click navigate to Login page button");
-        Waiter.waitElementToBeDisplayed(navigateToLoginPageButton).click();
+        log.info("Click 'Navigate to Login page' button");
+        navigateToLoginPageButton.click();
         return new LoginPage();
     }
 
     public LoginPage clickNavigateToSsoLoginPage() {
-        log.info("Click navigate to SSO Login page button");
-        Waiter.waitElementToBeDisplayed(navigateToSsoLoginPageButton).click();
+        log.info("Click 'Navigate to SSO Login page' button");
+        navigateToSsoLoginPageButton.click();
         return new LoginPage();
     }
 }
