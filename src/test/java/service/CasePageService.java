@@ -11,9 +11,9 @@ public class CasePageService {
     private CasePage casePage;
 
     @Step("Filling 'Title' field")
-    public CasePageService fillTitleField(Case testCase) {
+    public CasePageService fillTitleField(String caseTitle) {
         casePage = new CasePage();
-        casePage.fillTitleField(testCase.getTitle());
+        casePage.fillTitleField(caseTitle);
         return this;
     }
 

@@ -35,7 +35,7 @@ public class CasePage extends BasePage {
 
     public CasePage fillTitleField(String caseTitle) {
         log.info("Fill 'Title' field");
-        titleField.sendKeys(caseTitle);
+        Waiter.waitElementToBeDisplayed(titleField).sendKeys(caseTitle);
         return this;
     }
 
@@ -48,35 +48,35 @@ public class CasePage extends BasePage {
 
     public CasePage clickAddStepButton() {
         log.info("Click 'Add step' button");
-        addStepButton.click();
+        Waiter.waitElementToBeDisplayed(addStepButton).click();
         return this;
     }
 
     public ProjectPage clickSaveButton() {
         log.info("Click 'Save' button");
-        saveButton.click();
+        Waiter.waitElementToBeDisplayed(saveButton).click();
         return new ProjectPage();
     }
 
     public boolean isMoreThanLimitTitleValidationMessageDisplayed() {
-        return moreThanLimitTitleValidationMessage.isDisplayed();
+        return Waiter.waitElementToBeDisplayed(moreThanLimitTitleValidationMessage).isDisplayed();
     }
 
     public ProjectPage clickBackToProjectButton() {
         log.info("Click 'Back to project' button");
-        backToProjectButton.click();
+        Waiter.waitElementToBeDisplayed(backToProjectButton).click();
         return new ProjectPage();
     }
 
     public CasePage clickAddAttachmentButton() {
         log.info("Click 'Add attachment' button");
-        addAttachmentButton.click();
+        Waiter.waitElementToBeDisplayed(addAttachmentButton).click();
         return this;
     }
 
     public CasePage clickBrowseNavigationButton() {
         log.info("Click 'Browse' navigation button");
-        browseNavigationButton.click();
+        Waiter.waitElementToBeDisplayed(browseNavigationButton).click();
         return this;
     }
 

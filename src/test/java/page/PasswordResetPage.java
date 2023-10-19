@@ -3,6 +3,7 @@ package page;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import utils.Waiter;
 
 @Log4j2
 public class PasswordResetPage extends BasePage {
@@ -24,13 +25,13 @@ public class PasswordResetPage extends BasePage {
 
     public PasswordResetPage fillEmail(String email) {
         log.info("Fill 'Email' field");
-        emailField.sendKeys(email);
+        Waiter.waitElementToBeDisplayed(emailField).sendKeys(email);
         return this;
     }
 
     public PasswordResetPage clickSendResetLinkButton() {
         log.info("Click 'Send reset link' button");
-        sendResetLinkButton.click();
+        Waiter.waitElementToBeDisplayed(sendResetLinkButton).click();
         return this;
     }
 
@@ -40,13 +41,13 @@ public class PasswordResetPage extends BasePage {
 
     public LoginPage clickNavigateToLoginPageButton() {
         log.info("Click 'Navigate to Login page' button");
-        navigateToLoginPageButton.click();
+        Waiter.waitElementToBeDisplayed(navigateToLoginPageButton).click();
         return new LoginPage();
     }
 
     public LoginPage clickNavigateToSsoLoginPage() {
         log.info("Click 'Navigate to SSO Login page' button");
-        navigateToSsoLoginPageButton.click();
+        Waiter.waitElementToBeDisplayed(navigateToSsoLoginPageButton).click();
         return new LoginPage();
     }
 }

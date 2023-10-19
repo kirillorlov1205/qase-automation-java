@@ -38,7 +38,7 @@ public class ProjectPage extends BasePage {
                 .isDisplayed();
     }
 
-    public ProjectPage clickOnTestCase(String caseTitle) {
+    public ProjectPage clickOnTestCaseByTitle(String caseTitle) {
         log.info(String.format("Click on test case with title '%s'", caseTitle));
         Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(CASE, caseTitle))).click();
         return this;
