@@ -34,9 +34,9 @@ public class ProjectPageService {
     }
 
     @Step("Clicking on test case")
-    public ProjectPageService clickOnTestCase(Case testCase) {
+    public ProjectPageService clickOnTestCaseByTitle(String caseTitle) {
         projectPage = new ProjectPage();
-        projectPage.clickOnTestCase(testCase.getTitle());
+        projectPage.clickOnTestCaseByTitle(caseTitle);
         return this;
     }
 

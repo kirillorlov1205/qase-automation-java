@@ -44,24 +44,24 @@ public class LoginPage extends BasePage {
 
     public LoginPage fillEmail(String userName) {
         log.info("Fill 'Email' field");
-        emailField.sendKeys(userName);
+        Waiter.waitElementToBeDisplayed(emailField).sendKeys(userName);
         return this;
     }
 
     public LoginPage fillPassword(String password) {
         log.info("Fill 'Password' field");
-        passwordField.sendKeys(password);
+        Waiter.waitElementToBeDisplayed(passwordField).sendKeys(password);
         return this;
     }
 
     public ProjectsListPage clickLoginButton() {
         log.info("Click 'Login' button");
-        loginButton.click();
+        Waiter.waitElementToBeDisplayed(loginButton).click();
         return new ProjectsListPage();
     }
 
     public String getLoginValidationMessage() {
-        return loginValidationMessage.getText();
+        return  Waiter.waitElementToBeDisplayed(loginValidationMessage).getText();
     }
 
     public boolean isEmptyFieldValidationMessageDisplayed(String type) {
@@ -70,12 +70,12 @@ public class LoginPage extends BasePage {
     }
 
     public String getWrongEmailFormatValidationMessage() {
-        return wrongEmailFormatValidationMessage.getText();
+        return  Waiter.waitElementToBeDisplayed(wrongEmailFormatValidationMessage).getText();
     }
 
     public PasswordResetPage clickForgotPasswordButton() {
         log.info("Click 'Forgot password' button");
-        forgotPasswordButton.click();
+        Waiter.waitElementToBeDisplayed(forgotPasswordButton).click();
         return new PasswordResetPage();
     }
 
@@ -86,11 +86,11 @@ public class LoginPage extends BasePage {
     }
 
     public boolean isLoginPageOpened() {
-        return loginButton.isDisplayed();
+        return  Waiter.waitElementToBeDisplayed(loginButton).isDisplayed();
     }
 
     public boolean isSsoLoginPageOpened() {
-        return loginSsoPageHeading.isDisplayed();
+        return  Waiter.waitElementToBeDisplayed(loginSsoPageHeading).isDisplayed();
     }
 
     public LoginPage clickOnAdditionalLinkByName(String name) {
@@ -101,11 +101,11 @@ public class LoginPage extends BasePage {
 
     public LoginPage openLiveChat() {
         log.info("Open Live chat");
-        liveChatButton.click();
+        Waiter.waitElementToBeDisplayed(liveChatButton).click();
         return this;
     }
 
     public boolean isLiveChatOpened() {
-        return liveChatIframe.isDisplayed();
+        return  Waiter.waitElementToBeDisplayed(liveChatIframe).isDisplayed();
     }
 }

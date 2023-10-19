@@ -5,7 +5,6 @@ import model.Constants;
 import model.Project;
 import model.User;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import service.LoginPageService;
@@ -26,12 +25,6 @@ public class ProjectsListPageTest extends BaseTest {
         loginPageService = new LoginPageService();
         projectsListPageService = new ProjectsListPageService();
         projectPageService = new ProjectPageService();
-    }
-
-    @AfterClass
-    public void clean() {
-        projectsListPageService.openProjectsListPage()
-                .removeCreatedProjects();
     }
 
     @Test(description = "Verify successful project creation", priority = 1)
@@ -69,7 +62,7 @@ public class ProjectsListPageTest extends BaseTest {
     @Test(description = "Verify automatic project code filling", priority = 4)
     @Description("Automatic project code filling")
     public void verifyAutomaticProjectCodeFilling() {
-        Project projectWithEmptyCode = new Project(generateRandomAlphabeticString(2, 10), "",
+        Project projectWithEmptyCode = new Project("test".concat(generateRandomAlphabeticString(2, 6)), "",
                 generateRandomString(10, 20), Enums.ProjectAccessTypes.Public);
         String actualProjectTitle = projectsListPageService
                 .openProjectsListPage()
@@ -109,7 +102,8 @@ public class ProjectsListPageTest extends BaseTest {
         Project projectWIthNumericName = new Project(generateRandomNumericString(2, 10), "",
                 generateRandomString(10, 20), Enums.ProjectAccessTypes.Public);
         projectsListPageService.openProjectsListPage()
-                .createNewProject(projectWIthNumericName);
+                .clickCreateNewProjectButton()
+                .fillProjectNameField(projectWIthNumericName.getProjectName());
         Assert.assertTrue(projectsListPageService.isProjectCodeFieldEmpty(), "Project code field is not empty");
     }
 
@@ -119,7 +113,8 @@ public class ProjectsListPageTest extends BaseTest {
         Project projectWIthPrivateAccess = new Project(generateRandomString(2, 10), generateRandomString(2, 10),
                 generateRandomString(10, 20), Enums.ProjectAccessTypes.Private);
         projectsListPageService.openProjectsListPage()
-                .createNewProject(projectWIthPrivateAccess);
+                .clickCreateNewProjectButton()
+                .selectProjectAccessType(projectWIthPrivateAccess.getProjectAccessType());
         Assert.assertTrue(projectsListPageService.isPrivateMemberAccessDisplayed(), "Private access type is " +
                 "not selected");
     }

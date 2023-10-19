@@ -6,7 +6,6 @@ import model.Case;
 import model.Project;
 import model.User;
 import org.testng.Assert;
-import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -14,28 +13,19 @@ import org.testng.asserts.SoftAssert;
 import service.CasePageService;
 import service.LoginPageService;
 import service.ProjectPageService;
-import service.ProjectsListPageService;
 import utils.TestDataGenerator;
 
 public class CasePageTest extends BaseTest {
 
     private LoginPageService loginPageService;
     private ProjectPageService projectPageService;
-    private ProjectsListPageService projectsListPageService;
     private CasePageService casePageService;
 
     @BeforeClass
     public void setUp() {
         loginPageService = new LoginPageService();
         projectPageService = new ProjectPageService();
-        projectsListPageService = new ProjectsListPageService();
         casePageService = new CasePageService();
-    }
-
-    @AfterClass
-    public void clean() {
-        projectsListPageService.openProjectsListPage()
-                .removeCreatedProjects();
     }
 
     @Test(description = "Verify successful case with steps creation", priority = 1)
@@ -46,7 +36,7 @@ public class CasePageTest extends BaseTest {
                 .createNewProject(new Project())
                 .clickCreateCaseButton()
                 .createTestCase(testCase)
-                .clickOnTestCase(testCase);
+                .clickOnTestCaseByTitle(testCase.getTitle());
         Assert.assertTrue(projectPageService.isCaseWithStepsCreatedInProject(testCase), "New case with " +
                 "steps not created");
     }
@@ -56,7 +46,7 @@ public class CasePageTest extends BaseTest {
     public void verifySuccessfulCaseWithTitleOnlyCreation() {
         Case testCase = new Case();
         projectPageService.clickCreateCaseButton()
-                .fillTitleField(testCase)
+                .fillTitleField(testCase.getTitle())
                 .clickSaveButton();
         Assert.assertTrue(projectPageService.isCaseCreatedInProject(testCase), "New case with title only " +
                 "not created");
@@ -68,10 +58,10 @@ public class CasePageTest extends BaseTest {
         String attachmentName = "testAttachment";
         Case testCase = new Case();
         projectPageService.clickCreateCaseButton()
-                .fillTitleField(testCase)
+                .fillTitleField(testCase.getTitle())
                 .addAttachment(attachmentName)
                 .clickSaveButton()
-                .clickOnTestCase(testCase);
+                .clickOnTestCaseByTitle(testCase.getTitle());
         Assert.assertTrue(projectPageService.isCaseWithAttachmentCreatedInProject(attachmentName), "New " +
                 "case with attachment not created");
     }
@@ -81,7 +71,7 @@ public class CasePageTest extends BaseTest {
     public void verifyTitleFormatValidation(String caseTitle) {
         Case testCase = new Case(caseTitle);
         projectPageService.clickCreateCaseButton()
-                .fillTitleField(testCase)
+                .fillTitleField(testCase.getTitle())
                 .clickSaveButton();
         Assert.assertTrue(projectPageService.isCaseCreatedInProject(testCase), "New case not created");
     }
@@ -92,7 +82,7 @@ public class CasePageTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         Case testCase = new Case("");
         projectPageService.clickCreateCaseButton()
-                .fillTitleField(testCase)
+                .fillTitleField(testCase.getTitle())
                 .clickSaveButton();
         softAssert.assertTrue(projectPageService.isProjectPageNotOpened(), "Empty title validation failed");
         casePageService.clickBackToProjectButton();
@@ -105,7 +95,7 @@ public class CasePageTest extends BaseTest {
         SoftAssert softAssert = new SoftAssert();
         Case testCase = new Case(TestDataGenerator.generateRandomString(256, 256));
         projectPageService.clickCreateCaseButton()
-                .fillTitleField(testCase)
+                .fillTitleField(testCase.getTitle())
                 .clickSaveButton();
         softAssert.assertTrue(casePageService.isMoreThanLimitTitleValidationMessageDisplayed(), "More than " +
                 "limit title validation message not displayed");

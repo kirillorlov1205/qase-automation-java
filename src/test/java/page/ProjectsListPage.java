@@ -58,21 +58,21 @@ public class ProjectsListPage extends BasePage {
 
     public ProjectsListPage fillProjectName(String projectName) {
         log.info("Fill 'Project name'");
-        projectNameField.sendKeys(projectName);
+        Waiter.waitElementToBeDisplayed(projectNameField).sendKeys(projectName);
         return this;
     }
 
     public ProjectsListPage fillProjectCode(String projectCode) {
         log.info("Fill 'Project code'");
-        projectCodeField.clear();
+        Waiter.waitElementToBeDisplayed(projectCodeField).clear();
         Waiter.waitElementAttributeToBe(projectCodeField, "value", "");
-        projectCodeField.sendKeys(projectCode);
+        Waiter.waitElementToBeDisplayed(projectCodeField).sendKeys(projectCode);
         return this;
     }
 
     public ProjectsListPage fillProjectDescription(String projectCode) {
         log.info("Fill 'Project description'");
-        projectDescriptionField.sendKeys(projectCode);
+        Waiter.waitElementToBeDisplayed(projectDescriptionField).sendKeys(projectCode);
         return this;
     }
 
@@ -85,7 +85,7 @@ public class ProjectsListPage extends BasePage {
 
     public ProjectsListPage submitProjectCreation() {
         log.info("Submit project creation");
-        submitProjectCreationButton.click();
+        Waiter.waitElementToBeDisplayed(submitProjectCreationButton).click();
         return this;
     }
 
@@ -109,7 +109,7 @@ public class ProjectsListPage extends BasePage {
         log.info(String.format("Remove project with index '%s'", index));
         Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(PROJECT_DROPDOWN_BUTTON, index))).click();
         Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(REMOVE_PROJECT_BUTTON, index))).click();
-        submitProjectRemovingButton.click();
+        Waiter.waitElementToBeDisplayed(submitProjectRemovingButton).click();
         return this;
     }
 
@@ -120,14 +120,14 @@ public class ProjectsListPage extends BasePage {
     }
 
     public String getInvalidCodeValidationMessage() {
-        return invalidCodeValidationMessage.getText();
+        return Waiter.waitElementToBeDisplayed(invalidCodeValidationMessage).getText();
     }
 
     public boolean isProjectCodeFieldEmpty() {
-        return projectCodeField.getAttribute("value").isEmpty();
+        return Waiter.waitElementToBeDisplayed(projectCodeField).getAttribute("value").isEmpty();
     }
 
     public boolean isPrivateMemberAccessDisplayed() {
-        return privateMemberAccess.isDisplayed();
+        return Waiter.waitElementToBeDisplayed(privateMemberAccess).isDisplayed();
     }
 }

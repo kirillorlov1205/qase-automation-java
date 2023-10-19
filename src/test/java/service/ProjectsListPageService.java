@@ -4,6 +4,7 @@ import io.qameta.allure.Step;
 import lombok.extern.log4j.Log4j2;
 import model.Project;
 import page.ProjectsListPage;
+import utils.Enums;
 
 @Log4j2
 public class ProjectsListPageService {
@@ -26,6 +27,13 @@ public class ProjectsListPageService {
                 .fillProjectDescription(project.getProjectDescription())
                 .selectProjectAccessType(project.getProjectAccessType())
                 .submitProjectCreation();
+        return new ProjectPageService();
+    }
+
+    @Step("Selecting project access type")
+    public ProjectPageService selectProjectAccessType(Enums.ProjectAccessTypes projectAccessType) {
+        projectsListPage = new ProjectsListPage();
+        projectsListPage.selectProjectAccessType(projectAccessType);
         return new ProjectPageService();
     }
 
@@ -59,5 +67,19 @@ public class ProjectsListPageService {
     public boolean isPrivateMemberAccessDisplayed() {
         projectsListPage = new ProjectsListPage();
         return projectsListPage.isPrivateMemberAccessDisplayed();
+    }
+
+    @Step("Clicking 'create new project' button")
+    public ProjectsListPageService clickCreateNewProjectButton() {
+        projectsListPage = new ProjectsListPage();
+        projectsListPage.clickCreateNewProjectButton();
+        return this;
+    }
+
+    @Step("Filling 'project name' field")
+    public ProjectsListPageService fillProjectNameField(String projectName) {
+        projectsListPage = new ProjectsListPage();
+        projectsListPage.fillProjectName(projectName);
+        return this;
     }
 }

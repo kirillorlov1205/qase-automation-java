@@ -5,8 +5,8 @@ import utils.TestDataGenerator;
 
 public class Project {
 
-    private String projectName = TestDataGenerator.generateRandomString(2, 10);
-    private String projectCode = TestDataGenerator.generateRandomString(2, 10);
+    private String projectName = "test".concat(TestDataGenerator.generateRandomString(2, 10));
+    private String projectCode = (TestDataGenerator.generateRandomString(2, 10));
     private String projectDescription = TestDataGenerator.generateRandomString(10, 20);
     private Enums.ProjectAccessTypes projectAccessType = Enums.ProjectAccessTypes.Public;
 
