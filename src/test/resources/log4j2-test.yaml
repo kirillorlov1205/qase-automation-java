@@ -14,7 +14,7 @@ Configuration:
         Pattern: ${DefaultPattern}
     File:
       name: fileAppender
-      fileName: "target/tests.log"
+      fileName: "target/ui.tests.log"
       PatternLayout:
         Pattern: ${DefaultPattern}
   Loggers:

@@ -23,7 +23,7 @@ jobs:
           key: v1-dependencies-{{ checksum "pom.xml" }}
 
       - run:
-          name: Running tests
+          name: Running ui.tests
           command: mvn -Dbrowser=chrome -Dsurefire.suiteXmlFiles="src\test\resources\testng-smoke.xml" clean test
       - run:
           name: Generate allure report
@@ -38,7 +38,7 @@ workflows:
   version: 2
   commit:
     jobs:
-      - ui-tests
+      - ui-ui.tests
   periodical:
     triggers:
       - schedule:
@@ -48,4 +48,4 @@ workflows:
               only:
                 - main
     jobs:
-      - ui-tests
+      - ui-ui.tests

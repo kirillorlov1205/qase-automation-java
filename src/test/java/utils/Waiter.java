@@ -1,6 +1,6 @@
 package utils;
 
-import driver.DriverSingleton;
+import ui.driver.DriverSingleton;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
