@@ -8,7 +8,6 @@ import org.openqa.selenium.support.PageFactory;
 import java.time.Duration;
 
 public abstract class BasePage {
-
     protected WebDriver driver = DriverSingleton.getInstance().getDriver();
 
     protected BasePage() {
@@ -16,14 +15,14 @@ public abstract class BasePage {
     }
 
     public boolean isElementNotDisplayed(WebElement element) {
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(1));
         boolean result;
         try {
             result = !element.isDisplayed();
         } catch (Exception e) {
             result = true;
         }
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(20));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
         return result;
     }
 }

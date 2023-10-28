@@ -8,7 +8,6 @@ import utils.Waiter;
 
 @Log4j2
 public class ProjectPage extends BasePage {
-
     private static final String CASE = "//div[contains(@class,'orFHna')]/div[contains(text(),'%s')]";
     private static final String STEP = "//p[contains(text(),'%s')]";
     private static final String CASE_ATTACHMENT = "//a[contains(@href,'%s')] ";

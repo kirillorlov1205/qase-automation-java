@@ -9,7 +9,6 @@ import utils.Waiter;
 
 @Log4j2
 public class LoginPage extends BasePage {
-
     private static final String LOGIN_PAGE_URL = "https://app.qase.io/login";
     private static final String EMPTY_FIELD_VALIDATION_MESSAGE = "//input[@name='%s']//ancestor::div[@class='tdishH']" +
             "//small";

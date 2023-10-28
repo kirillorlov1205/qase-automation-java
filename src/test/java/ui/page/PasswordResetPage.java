@@ -7,7 +7,6 @@ import utils.Waiter;
 
 @Log4j2
 public class PasswordResetPage extends BasePage {
-
     @FindBy(xpath = "//input[@name='email']")
     private WebElement emailField;
 

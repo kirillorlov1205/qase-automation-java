@@ -7,7 +7,6 @@ import ui.page.CasePage;
 
 @Log4j2
 public class CasePageService {
-
     private CasePage casePage;
 
     @Step("Filling 'Title' field")

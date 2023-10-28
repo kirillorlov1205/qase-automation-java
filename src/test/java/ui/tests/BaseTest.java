@@ -13,7 +13,7 @@ import utils.TestListener;
 @Listeners(TestListener.class)
 public class BaseTest {
 
-    protected WebDriver driver;
+    private WebDriver driver;
 
     @BeforeClass
     public void startBrowser() {
@@ -25,12 +25,12 @@ public class BaseTest {
         DriverSingleton.getInstance().closeDriver();
     }
 
-    @AfterSuite
-    public void clean() {
-        driver = DriverSingleton.getInstance().getDriver();
-        LoginPageService loginPageService = new LoginPageService();
-        loginPageService.login(new User())
-                .removeCreatedProjects();
-        driver.quit();
-    }
+//    @AfterSuite
+//    public void clean() {
+//        driver = DriverSingleton.getInstance().getDriver();
+//        LoginPageService loginPageService = new LoginPageService();
+//        loginPageService.login(new User())
+//                .removeCreatedProjects();
+//        driver.quit();
+//    }
 }

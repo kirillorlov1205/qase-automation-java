@@ -1,16 +1,19 @@
 package ui.tests;
 
 import io.qameta.allure.Description;
-import ui.model.Constants;
-import ui.model.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ui.model.User;
 import ui.service.LoginPageService;
 
 public class PasswordResetPageTest extends BaseTest {
-
+    private static final String SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE = "We have e-mailed your password " +
+            "reset link!";
+    private static final String USER_NOT_FOUND_VALIDATION_MESSAGE = "User not found.";
+    private static final String INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE = "Value '%s' does not match format email " +
+            "of type string";
     private LoginPageService loginPageService;
 
     @BeforeClass
@@ -26,7 +29,7 @@ public class PasswordResetPageTest extends BaseTest {
                 .fillEmail(new User().getEmail())
                 .clickSendResetLinkButton()
                 .getValidationMessage();
-        String expectedValidationMessage = Constants.SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE;
+        String expectedValidationMessage = SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE;
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }
@@ -40,7 +43,7 @@ public class PasswordResetPageTest extends BaseTest {
                 .fillEmail(userWithWrongEmail.getEmail())
                 .clickSendResetLinkButton()
                 .getValidationMessage();
-        String expectedValidationMessage = Constants.USER_NOT_FOUND_VALIDATION_MESSAGE;
+        String expectedValidationMessage = USER_NOT_FOUND_VALIDATION_MESSAGE;
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }
@@ -54,7 +57,7 @@ public class PasswordResetPageTest extends BaseTest {
                 .fillEmail(email)
                 .clickSendResetLinkButton()
                 .getValidationMessage();
-        String expectedValidationMessage = String.format(Constants.INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE, email);
+        String expectedValidationMessage = String.format(INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE, email);
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }

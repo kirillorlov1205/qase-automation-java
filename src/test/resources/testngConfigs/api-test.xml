@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
+
+<suite name="api test" parallel="tests" thread-count="3">
+    <test name="Case test">
+        <classes>
+            <class name="api.tests.CaseTest"/>
+        </classes>
+    </test>
+    <test name="Defect test">
+        <classes>
+            <class name="api.tests.DefectTest"/>
+        </classes>
+    </test>
+    <test name="Milestone test">
+        <classes>
+            <class name="api.tests.MilestoneTest"/>
+        </classes>
+    </test>
+    <test name="Plan test">
+        <classes>
+            <class name="api.tests.PlanTest"/>
+        </classes>
+    </test>
+    <test name="Project test">
+        <classes>
+            <class name="api.tests.ProjectTest"/>
+        </classes>
+    </test>
+    <test name="Run test">
+        <classes>
+            <class name="api.tests.RunTest"/>
+        </classes>
+    </test>
+    <test name="Suite test">
+        <classes>
+            <class name="api.tests.SuiteTest"/>
+        </classes>
+    </test>
+</suite>

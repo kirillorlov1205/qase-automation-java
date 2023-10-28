@@ -1,31 +1,48 @@
 package ui.tests;
 
-import ui.driver.UiDriverActions;
+import api.adapters.ProjectAdapter;
 import io.qameta.allure.Description;
-import ui.model.Case;
-import ui.model.Project;
-import ui.model.User;
 import org.testng.Assert;
+import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import ui.driver.UiDriverActions;
+import ui.model.Case;
+import ui.model.Project;
+import ui.model.User;
 import ui.service.CasePageService;
 import ui.service.LoginPageService;
 import ui.service.ProjectPageService;
+import utils.Enums;
 import utils.TestDataGenerator;
+
+import static utils.TestDataGenerator.generateRandomString;
 
 public class CasePageTest extends BaseTest {
 
     private LoginPageService loginPageService;
     private ProjectPageService projectPageService;
     private CasePageService casePageService;
+    private Project project;
 
     @BeforeClass
     public void setUp() {
         loginPageService = new LoginPageService();
         projectPageService = new ProjectPageService();
         casePageService = new CasePageService();
+        project = Project.builder()
+                .projectName(generateRandomString(2, 10))
+                .projectCode(generateRandomString(2, 10))
+                .projectDescription(generateRandomString(2, 10))
+                .projectAccessType(Enums.ProjectAccessTypes.Public)
+                .build();
+    }
+
+    @AfterClass
+    public void clean() {
+        new ProjectAdapter().deleteProjectByCode(project.getProjectCode());
     }
 
     @Test(description = "Verify successful case with steps creation", priority = 1)
@@ -33,7 +50,7 @@ public class CasePageTest extends BaseTest {
     public void verifySuccessfulCaseWithStepsCreation() {
         Case testCase = new Case();
         loginPageService.login(new User())
-                .createNewProject(new Project())
+                .createNewProject(project)
                 .clickCreateCaseButton()
                 .createTestCase(testCase)
                 .clickOnTestCaseByTitle(testCase.getTitle());
@@ -93,7 +110,7 @@ public class CasePageTest extends BaseTest {
     @Description("More than limit title validation")
     public void verifyMoreThanLimitTitleValidation() {
         SoftAssert softAssert = new SoftAssert();
-        Case testCase = new Case(TestDataGenerator.generateRandomString(256, 256));
+        Case testCase = new Case(generateRandomString(256, 256));
         projectPageService.clickCreateCaseButton()
                 .fillTitleField(testCase.getTitle())
                 .clickSaveButton();

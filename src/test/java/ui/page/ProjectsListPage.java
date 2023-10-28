@@ -13,7 +13,6 @@ import java.util.List;
 
 @Log4j2
 public class ProjectsListPage extends BasePage {
-
     private static final String PROJECTS_LIST_PAGE_URL = "https://app.qase.io/projects";
     private static final String PROJECT_ACCESS_TYPE_BUTTON = "//span[contains(text(),'%s')]";
     private static final String PROJECT_DROPDOWN_BUTTON = "//tr[%s]//a[contains(@class,'btn-dropdown')]";
