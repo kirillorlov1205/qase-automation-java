@@ -5,7 +5,6 @@ import utils.TestDataGenerator;
 import java.util.List;
 
 public class Case {
-
     private String title = TestDataGenerator.generateRandomString(1, 10);
     private List<Step> steps = List.of(new Step());
 

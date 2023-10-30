@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd" >
 
-<suite name="ui smoke test" parallel="tests" thread-count="4">
-    <test name="Case ui.page test">
+<suite name="Ui test" parallel="tests" thread-count="4">
+    <test name="Case page test">
         <classes>
             <class name="ui.tests.CasePageTest"/>
         </classes>
     </test>
-    <test name="Login ui.page test">
+    <test name="Login page test">
         <classes>
             <class name="ui.tests.LoginPageTest"/>
         </classes>
     </test>
-    <test name="Password reset ui.page test">
+    <test name="Password reset page test">
         <classes>
             <class name="ui.tests.PasswordResetPageTest"/>
         </classes>
     </test>
-    <test name="Projects list ui.page test">
+    <test name="Projects list page test">
         <classes>
             <class name="ui.tests.ProjectsListPageTest"/>
         </classes>

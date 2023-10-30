@@ -1,16 +1,19 @@
 package ui.tests;
 
 import io.qameta.allure.Description;
-import ui.model.Constants;
-import ui.model.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
-import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ui.model.User;
 import ui.service.LoginPageService;
+import utils.DataProviders;
 
 public class PasswordResetPageTest extends BaseTest {
-
+    private static final String SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE = "We have e-mailed your password " +
+            "reset link!";
+    private static final String USER_NOT_FOUND_VALIDATION_MESSAGE = "User not found.";
+    private static final String INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE = "Value '%s' does not match format email " +
+            "of type string";
     private LoginPageService loginPageService;
 
     @BeforeClass
@@ -26,7 +29,7 @@ public class PasswordResetPageTest extends BaseTest {
                 .fillEmail(new User().getEmail())
                 .clickSendResetLinkButton()
                 .getValidationMessage();
-        String expectedValidationMessage = Constants.SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE;
+        String expectedValidationMessage = SUCCESSFUL_PASSWORD_RESET_VALIDATION_MESSAGE;
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }
@@ -40,13 +43,13 @@ public class PasswordResetPageTest extends BaseTest {
                 .fillEmail(userWithWrongEmail.getEmail())
                 .clickSendResetLinkButton()
                 .getValidationMessage();
-        String expectedValidationMessage = Constants.USER_NOT_FOUND_VALIDATION_MESSAGE;
+        String expectedValidationMessage = USER_NOT_FOUND_VALIDATION_MESSAGE;
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }
 
     @Test(description = "Verify wrong reset password email format validation", priority = 3, dataProvider = "Wrong " +
-            "format emails list")
+            "format emails list", dataProviderClass = DataProviders.class)
     @Description("Wrong reset password email format validation")
     public void verifyWrongResetPasswordEmailFormatValidation(String email) {
         String actualValidationMessage = loginPageService
@@ -54,7 +57,7 @@ public class PasswordResetPageTest extends BaseTest {
                 .fillEmail(email)
                 .clickSendResetLinkButton()
                 .getValidationMessage();
-        String expectedValidationMessage = String.format(Constants.INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE, email);
+        String expectedValidationMessage = String.format(INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE, email);
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }
@@ -73,24 +76,5 @@ public class PasswordResetPageTest extends BaseTest {
         loginPageService.clickForgotPasswordButton()
                 .clickNavigateToSsoLoginPageButton();
         Assert.assertTrue(loginPageService.isSsoLoginPageOpened(), "Login ui.page hasn't been opened");
-    }
-
-    @DataProvider(name = "Wrong format emails list")
-    public Object[][] wrongFormatEmailsList() {
-        return new Object[][]{
-                {"abc.def@mail#archive.com"},
-                {"abc..def@mail.com"},
-                {".abc@mail.com"},
-                {"abc.def@mail"},
-                {"abc.def@mail..com"},
-                {"email.domain.com"},
-                {"email@domain@domain.com"},
-                {"email.@domain.com"},
-                {"mail@-domain.com"},
-                {"あいうえお@domain.com"},
-                {"@domain.com"},
-                {"<script>alert(123)</script>"},
-                {"xxx@xxx.xxx' OR 1 = 1 LIMIT 1 -- ' ]"},
-        };
     }
 }

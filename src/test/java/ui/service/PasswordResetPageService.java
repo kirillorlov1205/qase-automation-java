@@ -4,7 +4,6 @@ import io.qameta.allure.Step;
 import ui.page.PasswordResetPage;
 
 public class PasswordResetPageService {
-
     private PasswordResetPage passwordResetPage;
 
     @Step("Filling 'Email' field")

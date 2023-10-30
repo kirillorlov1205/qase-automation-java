@@ -1,18 +1,20 @@
 package ui.tests;
 
-import ui.driver.UiDriverActions;
 import io.qameta.allure.Description;
-import ui.model.Constants;
-import ui.model.User;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
+import ui.driver.UiDriverActions;
+import ui.model.User;
 import ui.service.LoginPageService;
 import ui.service.ProjectsListPageService;
+import utils.DataProviders;
 
 public class LoginPageTest extends BaseTest {
-
+    private static final String INVALID_CREDENTIALS_VALIDATION_MESSAGE = "These credentials do not match our records.";
+    private static final String INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE = "Value '%s' does not match format email " +
+            "of type string";
     private LoginPageService loginPageService;
 
     @BeforeClass
@@ -33,7 +35,7 @@ public class LoginPageTest extends BaseTest {
         User userWithWrongEmail = new User("wrongEmail@gmail.com", "TestingPass1!");
         loginPageService.login(userWithWrongEmail);
         String actualValidationMessage = loginPageService.getLoginValidationMessage();
-        String expectedValidationMessage = Constants.INVALID_CREDENTIALS_VALIDATION_MESSAGE;
+        String expectedValidationMessage = INVALID_CREDENTIALS_VALIDATION_MESSAGE;
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }
@@ -44,7 +46,7 @@ public class LoginPageTest extends BaseTest {
         User userWithWrongPassword = new User("test12051@mail.ru", wrongPassword);
         loginPageService.login(userWithWrongPassword);
         String actualValidationMessage = loginPageService.getLoginValidationMessage();
-        String expectedValidationMessage = Constants.INVALID_CREDENTIALS_VALIDATION_MESSAGE;
+        String expectedValidationMessage = INVALID_CREDENTIALS_VALIDATION_MESSAGE;
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
     }
@@ -67,13 +69,14 @@ public class LoginPageTest extends BaseTest {
                 "validation message hasn't been shown");
     }
 
-    @Test(description = "Verify wrong email format validation", priority = 6, dataProvider = "Wrong format emails list")
+    @Test(description = "Verify wrong email format validation", priority = 6, dataProvider = "Wrong format emails list",
+            dataProviderClass = DataProviders.class)
     @Description("Wrong email format validation")
     public void verifyWrongEmailFormatValidation(String email) {
         User userWithWrongFormatEmail = new User(email);
         loginPageService.login(userWithWrongFormatEmail);
         String actualValidationMessage = loginPageService.getWrongEmailFormatValidationMessage();
-        String expectedValidationMessage = String.format(Constants.INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE,
+        String expectedValidationMessage = String.format(INVALID_EMAIL_FORMAT_VALIDATION_MESSAGE,
                 userWithWrongFormatEmail.getEmail());
         Assert.assertEquals(actualValidationMessage, expectedValidationMessage, "Validation message doesn't " +
                 "match expected");
@@ -96,28 +99,8 @@ public class LoginPageTest extends BaseTest {
         Assert.assertTrue(loginPageService.isLiveChatOpened(), "Live chat not opened");
     }
 
-    @DataProvider(name = "Wrong format emails list")
-    public Object[][] wrongFormatEmailsList() {
-        return new Object[][]{
-                {"abc.def@mail#archive.com"},
-                {"abc..def@mail.com"},
-                {".abc@mail.com"},
-                {"abc.def@mail"},
-                {"abc.def@mail..com"},
-                {"email.domain.com"},
-                {"email@domain@domain.com"},
-                {"email.@domain.com"},
-                {"mail@-domain.com"},
-                {"あいうえお@domain.com"},
-                {"@domain.com"},
-                {"<h1>Testing</h1>"},
-                {"<script>alert(123)</script>"},
-                {"xxx@xxx.xxx' OR 1 = 1 LIMIT 1 -- ' ]"},
-        };
-    }
-
     @DataProvider(name = "Wrong passwords list")
-    public Object[][] wrongPasswordsList() {
+    private Object[][] wrongPasswordsList() {
         return new Object[][]{
                 {"WrongTestingPass1!"},
                 {"<script>alert(123)</script>"},
@@ -126,7 +109,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @DataProvider(name = "Additional links list")
-    public Object[][] additionalLinksList() {
+    private Object[][] additionalLinksList() {
         return new Object[][]
                 {
                         {"YouTube", "https://www.youtube.com/playlist?list=PLt75o-m3IfmzbfsuO6Ey-mZgvEtLkWJnD"},

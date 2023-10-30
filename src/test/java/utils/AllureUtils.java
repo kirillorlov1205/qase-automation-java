@@ -8,7 +8,6 @@ import org.openqa.selenium.TakesScreenshot;
 
 @Log4j2
 public class AllureUtils {
-
     private AllureUtils() {
     }
 

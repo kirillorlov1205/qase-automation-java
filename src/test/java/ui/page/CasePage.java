@@ -8,7 +8,6 @@ import utils.Waiter;
 
 @Log4j2
 public class CasePage extends BasePage {
-
     private static final String CASE_STEPS_FIELD = "//p[@data-placeholder='%s']";
     private static final String ATTACHMENT = "//div[contains(@class,'attachments')]//a[contains(@href,'%s')]";
 
@@ -54,7 +53,7 @@ public class CasePage extends BasePage {
 
     public ProjectPage clickSaveButton() {
         log.info("Click 'Save' button");
-        Waiter.waitElementToBeDisplayed(saveButton).click();
+        saveButton.click();
         return new ProjectPage();
     }
 

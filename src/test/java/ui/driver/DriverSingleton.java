@@ -3,7 +3,6 @@ package ui.driver;
 import org.openqa.selenium.WebDriver;
 
 public class DriverSingleton {
-
     private static ThreadLocal<DriverSingleton> instance = new ThreadLocal<>();
 
     private WebDriver driver;

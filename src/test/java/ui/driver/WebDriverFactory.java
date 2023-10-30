@@ -12,7 +12,6 @@ import java.time.Duration;
 
 @Log4j2
 public class WebDriverFactory {
-
     private WebDriverFactory() {
     }
 
@@ -42,7 +41,7 @@ public class WebDriverFactory {
             }
         }
         driver.manage().window().maximize();
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
+        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
         return driver;
     }
 }

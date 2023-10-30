@@ -7,7 +7,6 @@ import utils.Waiter;
 
 @Log4j2
 public class PasswordResetPage extends BasePage {
-
     @FindBy(xpath = "//input[@name='email']")
     private WebElement emailField;
 
@@ -31,23 +30,23 @@ public class PasswordResetPage extends BasePage {
 
     public PasswordResetPage clickSendResetLinkButton() {
         log.info("Click 'Send reset link' button");
-        Waiter.waitElementToBeDisplayed(sendResetLinkButton).click();
+        sendResetLinkButton.click();
         return this;
     }
 
     public String getValidationMessage() {
-        return passwordResetValidationMessage.getText();
+        return Waiter.waitElementToBeDisplayed(passwordResetValidationMessage).getText();
     }
 
     public LoginPage clickNavigateToLoginPageButton() {
         log.info("Click 'Navigate to Login ui.page' button");
-        Waiter.waitElementToBeDisplayed(navigateToLoginPageButton).click();
+        navigateToLoginPageButton.click();
         return new LoginPage();
     }
 
     public LoginPage clickNavigateToSsoLoginPage() {
         log.info("Click 'Navigate to SSO Login ui.page' button");
-        Waiter.waitElementToBeDisplayed(navigateToSsoLoginPageButton).click();
+        navigateToSsoLoginPageButton.click();
         return new LoginPage();
     }
 }

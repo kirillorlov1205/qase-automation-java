@@ -5,7 +5,6 @@ import ui.model.Case;
 import ui.page.ProjectPage;
 
 public class ProjectPageService {
-
     private ProjectPage projectPage;
 
     @Step("Getting project title")
