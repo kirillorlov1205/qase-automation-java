@@ -1,11 +1,11 @@
 package ui.page;
 
-import ui.driver.UiDriverActions;
+import api.adapters.ProjectAdapter;
 import lombok.extern.log4j.Log4j2;
 import org.openqa.selenium.By;
-import org.openqa.selenium.StaleElementReferenceException;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
+import ui.driver.UiDriverActions;
 import utils.Enums;
 import utils.Waiter;
 
@@ -15,8 +15,6 @@ import java.util.List;
 public class ProjectsListPage extends BasePage {
     private static final String PROJECTS_LIST_PAGE_URL = "https://app.qase.io/projects";
     private static final String PROJECT_ACCESS_TYPE_BUTTON = "//span[contains(text(),'%s')]";
-    private static final String PROJECT_DROPDOWN_BUTTON = "//tr[%s]//a[contains(@class,'btn-dropdown')]";
-    private static final String REMOVE_PROJECT_BUTTON = "//tr[%s]//button[contains(text(),'Delete')]";
 
     @FindBy(xpath = "//button[@id='createButton']")
     private WebElement createNewProjectButton;
@@ -46,25 +44,24 @@ public class ProjectsListPage extends BasePage {
     private WebElement privateMemberAccess;
 
     public boolean isProjectsPageDisplayed() {
-        return Waiter.waitElementToBeDisplayed(createNewProjectButton).isDisplayed();
+        return Waiter.waitTwoMinutesElementToBeDisplayed(createNewProjectButton).isDisplayed();
     }
 
     public ProjectsListPage clickCreateNewProjectButton() {
         log.info("Click 'Create new project' button");
-        Waiter.waitElementToBeDisplayed(createNewProjectButton).click();
+        Waiter.waitTwoMinutesElementToBeDisplayed(createNewProjectButton).click();
         return this;
     }
 
     public ProjectsListPage fillProjectName(String projectName) {
         log.info("Fill 'Project name'");
-        Waiter.waitElementToBeDisplayed(projectNameField).sendKeys(projectName);
+        Waiter.waitTwoMinutesElementToBeDisplayed(projectNameField).sendKeys(projectName);
         return this;
     }
 
     public ProjectsListPage fillProjectCode(String projectCode) {
         log.info("Fill 'Project code'");
         Waiter.waitElementToBeDisplayed(projectCodeField).clear();
-        Waiter.waitElementAttributeToBe(projectCodeField, "value", "");
         Waiter.waitElementToBeDisplayed(projectCodeField).sendKeys(projectCode);
         return this;
     }
@@ -84,31 +81,13 @@ public class ProjectsListPage extends BasePage {
 
     public ProjectsListPage submitProjectCreation() {
         log.info("Submit project creation");
-        Waiter.waitElementToBeDisplayed(submitProjectCreationButton).click();
+        submitProjectCreationButton.click();
         return this;
     }
 
-    public ProjectsListPage removeCreatedProjects() {
-        log.info("Remove created projects");
-        int projectsQuantity = Waiter.waitElementsToBeDisplayed(projectList).size();
-        if (projectsQuantity > 0) {
-            for (int i = projectsQuantity; i > 0; i--) {
-                try {
-                    removeCreatedProjectByIndex(i);
-                } catch (StaleElementReferenceException e) {
-                    log.warn("StaleElementReferenceException was thrown\n Retrying to remove project");
-                    removeCreatedProjectByIndex(i);
-                }
-            }
-        }
-        return this;
-    }
-
-    public ProjectsListPage removeCreatedProjectByIndex(int index) {
-        log.info(String.format("Remove project with index '%s'", index));
-        Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(PROJECT_DROPDOWN_BUTTON, index))).click();
-        Waiter.waitElementToBeDisplayedByLocator(By.xpath(String.format(REMOVE_PROJECT_BUTTON, index))).click();
-        Waiter.waitElementToBeDisplayed(submitProjectRemovingButton).click();
+    public ProjectsListPage deleteProjectByCode(String code) {
+        log.info(String.format("Delete project with code '%s'", code));
+        new ProjectAdapter().deleteProjectByCode(code);
         return this;
     }
 
@@ -123,10 +102,10 @@ public class ProjectsListPage extends BasePage {
     }
 
     public boolean isProjectCodeFieldEmpty() {
-        return Waiter.waitElementToBeDisplayed(projectCodeField).getAttribute("value").isEmpty();
+        return projectCodeField.getAttribute("value").isEmpty();
     }
 
     public boolean isPrivateMemberAccessDisplayed() {
-        return Waiter.waitElementToBeDisplayed(privateMemberAccess).isDisplayed();
+        return privateMemberAccess.isDisplayed();
     }
 }

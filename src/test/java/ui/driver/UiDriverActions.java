@@ -3,7 +3,6 @@ package ui.driver;
 import java.util.ArrayList;
 
 public class UiDriverActions {
-
     private UiDriverActions() {
     }
 

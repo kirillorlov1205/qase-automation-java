@@ -12,7 +12,8 @@ pipeline {
     parameters {
         gitParameter defaultValue: 'chrome', name: 'BROWSER'
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
-        choice(name: 'SUITE', choices: ['src/test/resources/testng-smoke.xml', 'src/test/resources/testng-regression.xml'], description: 'Test suite')
+        choice(name: 'SUITE', choices: ['src/test/resources/api-test.xml', 'src/test/resources/regression-test.xml',
+        'src/test/resources/regression-test.xml'], description: 'Test suite')
         string(name: 'DEPLOY_ENV', defaultValue: 'qa', description: 'Environment to test')
         booleanParam(defaultValue: true, description: 'Headless mode', name: 'HEADLESS')
     }
@@ -21,7 +22,7 @@ pipeline {
       stage('Testing') {
          steps {
             // Get some code from a GitHub repository
-            git branch: "${params.BRANCH}", url: 'https://github.com/kirillorlov1205/tms-auto-saucedemo.git'
+            git branch: "${params.BRANCH}", url: 'https://github.com/kirillorlov1205/qase-automation.git'
 
             // Run Maven on a Unix agent.
             //sh "mvn clean test"

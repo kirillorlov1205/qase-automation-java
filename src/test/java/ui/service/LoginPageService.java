@@ -7,7 +7,6 @@ import ui.page.LoginPage;
 
 @Log4j2
 public class LoginPageService {
-
     private LoginPage loginPage;
 
     @Step("log in to the system")

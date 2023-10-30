@@ -9,6 +9,7 @@ import ui.driver.UiDriverActions;
 import ui.model.User;
 import ui.service.LoginPageService;
 import ui.service.ProjectsListPageService;
+import utils.DataProviders;
 
 public class LoginPageTest extends BaseTest {
     private static final String INVALID_CREDENTIALS_VALIDATION_MESSAGE = "These credentials do not match our records.";
@@ -68,7 +69,8 @@ public class LoginPageTest extends BaseTest {
                 "validation message hasn't been shown");
     }
 
-    @Test(description = "Verify wrong email format validation", priority = 6, dataProvider = "Wrong format emails list")
+    @Test(description = "Verify wrong email format validation", priority = 6, dataProvider = "Wrong format emails list",
+            dataProviderClass = DataProviders.class)
     @Description("Wrong email format validation")
     public void verifyWrongEmailFormatValidation(String email) {
         User userWithWrongFormatEmail = new User(email);
@@ -97,28 +99,8 @@ public class LoginPageTest extends BaseTest {
         Assert.assertTrue(loginPageService.isLiveChatOpened(), "Live chat not opened");
     }
 
-    @DataProvider(name = "Wrong format emails list")
-    public Object[][] wrongFormatEmailsList() {
-        return new Object[][]{
-                {"abc.def@mail#archive.com"},
-                {"abc..def@mail.com"},
-                {".abc@mail.com"},
-                {"abc.def@mail"},
-                {"abc.def@mail..com"},
-                {"email.domain.com"},
-                {"email@domain@domain.com"},
-                {"email.@domain.com"},
-                {"mail@-domain.com"},
-                {"あいうえお@domain.com"},
-                {"@domain.com"},
-                {"<h1>Testing</h1>"},
-                {"<script>alert(123)</script>"},
-                {"xxx@xxx.xxx' OR 1 = 1 LIMIT 1 -- ' ]"},
-        };
-    }
-
     @DataProvider(name = "Wrong passwords list")
-    public Object[][] wrongPasswordsList() {
+    private Object[][] wrongPasswordsList() {
         return new Object[][]{
                 {"WrongTestingPass1!"},
                 {"<script>alert(123)</script>"},
@@ -127,7 +109,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @DataProvider(name = "Additional links list")
-    public Object[][] additionalLinksList() {
+    private Object[][] additionalLinksList() {
         return new Object[][]
                 {
                         {"YouTube", "https://www.youtube.com/playlist?list=PLt75o-m3IfmzbfsuO6Ey-mZgvEtLkWJnD"},

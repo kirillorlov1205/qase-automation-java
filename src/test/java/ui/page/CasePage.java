@@ -53,7 +53,7 @@ public class CasePage extends BasePage {
 
     public ProjectPage clickSaveButton() {
         log.info("Click 'Save' button");
-        Waiter.waitElementToBeDisplayed(saveButton).click();
+        saveButton.click();
         return new ProjectPage();
     }
 

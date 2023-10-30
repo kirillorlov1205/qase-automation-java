@@ -8,7 +8,6 @@ import utils.Enums;
 
 @Log4j2
 public class ProjectsListPageService {
-
     private ProjectsListPage projectsListPage;
 
     @Step("Verify if projects ui.page displayed")
@@ -37,10 +36,10 @@ public class ProjectsListPageService {
         return new ProjectPageService();
     }
 
-    @Step("Removing created project")
-    public ProjectsListPageService removeCreatedProjects() {
+    @Step("Project Deletion")
+    public ProjectsListPageService deleteProjectByCode(String code) {
         projectsListPage = new ProjectsListPage();
-        projectsListPage.removeCreatedProjects();
+        projectsListPage.deleteProjectByCode(code);
         return this;
     }
 

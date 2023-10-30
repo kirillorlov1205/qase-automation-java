@@ -28,7 +28,7 @@ public class ProjectPage extends BasePage {
 
     public CasePage clickCreateCaseButton() {
         log.info("Click 'Create case' button");
-        Waiter.waitElementToBeDisplayed(createCaseButton).click();
+        Waiter.waitTwoMinutesElementToBeDisplayed(createCaseButton).click();
         return new CasePage();
     }
 
