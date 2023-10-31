@@ -12,20 +12,20 @@ pipeline {
     parameters {
         gitParameter defaultValue: 'chrome', name: 'BROWSER'
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
-        choice(name: 'SUITE', choices: ['src/test/resources/testngConfigs/api-test.xml', 'src/test/resources/testngConfigs/regression-test.xml', 'src/test/resources/regression-test.xml'], description: 'Test suite')
+        choice(name: 'SUITE', choices: ['src/test/resources/testngConfigs/api-test.xml', 'src/test/resources/testngConfigs/regression-test.xml', 'src/test/resources/regression-test.xml'], defaultValue: 'src/test/resources/testngConfigs/api-test.xml', description: 'Test suite')
     }
 
    stages {
       stage('Testing') {
          steps {
             // Get some code from a GitHub repository
-            git branch: "${params.BRANCH}", url: 'https://github.com/kirillorlov1205/qase-automation.git'
+            git branch: "*/main", url: 'https://github.com/kirillorlov1205/qase-automation.git'
 
             // Run Maven on a Unix agent.
             //sh "mvn clean test"
 
             // To run Maven on a Windows agent, use
-            bat "mvn -Dmaven.test.failure.ignore=true -Dbrowser=src/test/resources/testngConfigs/api-test.xml clean test"
+            bat "mvn -Dmaven.test.failure.ignore=true -Dbrowser=chrome -Dsurefire.suiteXmlFiles=src/test/resources/testngConfigs/api-test.xml clean test"
          }
 
          post {
