@@ -48,34 +48,34 @@ public class CasePageTest extends BaseTest {
         projectsListPageService.deleteProjectByCode(project.getProjectCode());
     }
 
-    @Test(description = "Verify successful case with attachment creation ", priority = 1)
+    @Test(description = "Verify successful case with steps creation", priority = 1)
+    @Description("Successful case with steps creation")
+    public void verifySuccessfulCaseWithStepsCreation() {
+        Case testCase = Case.builder()
+                .title("caseWithStep")
+                .steps(List.of(new Step())).build();
+        loginPageService.login(new User())
+                .createNewProject(project)
+                .clickCreateCaseButton()
+                .createTestCase(testCase)
+                .clickOnTestCaseByTitle(testCase.getTitle());
+        Assert.assertTrue(projectPageService.isCaseWithStepsCreatedInProject(testCase), "New case with " +
+                "steps not created");
+    }
+
+    @Test(description = "Verify successful case with attachment creation ", priority = 2)
     @Description("Successful case with attachment creation")
     public void verifySuccessfulCaseWithAttachmentCreation() {
         String attachmentName = "testAttachment";
         Case testCase = Case.builder()
                 .title("caseWithAttachment").build();
-        loginPageService.login(new User())
-                .createNewProject(project)
-                .clickCreateCaseButton()
+        projectPageService.clickCreateCaseButton()
                 .fillTitleField(testCase.getTitle())
                 .addAttachment(attachmentName)
                 .clickSaveButton()
                 .clickOnTestCaseByTitle(testCase.getTitle());
         Assert.assertTrue(projectPageService.isCaseWithAttachmentCreatedInProject(attachmentName), "New " +
                 "case with attachment not created");
-    }
-
-    @Test(description = "Verify successful case with steps creation", priority = 2)
-    @Description("Successful case with steps creation")
-    public void verifySuccessfulCaseWithStepsCreation() {
-        Case testCase = Case.builder()
-                .title("caseWithStep")
-                .steps(List.of(new Step())).build();
-        projectPageService.clickCreateCaseButton()
-                .createTestCase(testCase)
-                .clickOnTestCaseByTitle(testCase.getTitle());
-        Assert.assertTrue(projectPageService.isCaseWithStepsCreatedInProject(testCase), "New case with " +
-                "steps not created");
     }
 
     @Test(description = "Verify successful case with title only creation", priority = 3)
