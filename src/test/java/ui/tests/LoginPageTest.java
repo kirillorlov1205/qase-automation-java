@@ -9,6 +9,7 @@ import ui.driver.UiDriverActions;
 import ui.model.User;
 import ui.service.LoginPageService;
 import ui.service.ProjectsListPageService;
+import utils.DataProviders;
 
 public class LoginPageTest extends BaseTest {
     private static final String INVALID_CREDENTIALS_VALIDATION_MESSAGE = "These credentials do not match our records.";
