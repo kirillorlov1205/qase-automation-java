@@ -34,6 +34,7 @@ public class WebDriverFactory {
                     ChromeOptions chromeOptions = new ChromeOptions();
                     chromeOptions.addArguments("--incognito");
                     chromeOptions.addArguments("--remote-allow-origins=*");
+                    chromeOptions.addArguments("--window-size=1920,1080");
                     chromeOptions.addArguments("--headless");
                     driver = new ChromeDriver(chromeOptions);
                 } catch (Exception e) {

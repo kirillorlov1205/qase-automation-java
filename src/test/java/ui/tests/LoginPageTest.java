@@ -88,7 +88,7 @@ public class LoginPageTest extends BaseTest {
         loginPageService.openLoginPage()
                 .clickOnAdditionalLinkByName(linkName);
         String actualPageUrl = UiDriverActions.getSecondTabUrl();
-        Assert.assertTrue(expectedPageUrl.contains(actualPageUrl), "Page url doesn't match expected");
+        Assert.assertTrue(actualPageUrl.contains(expectedPageUrl), "Page url doesn't match expected");
     }
 
     @Test(description = "Verify live chat opening", priority = 8)
