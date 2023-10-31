@@ -6,10 +6,7 @@ import org.testng.annotations.BeforeClass;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 import ui.driver.UiDriverActions;
-import ui.model.User;
 import ui.service.LoginPageService;
-import ui.service.ProjectsListPageService;
-import utils.DataProviders;
 
 public class LoginPageTest extends BaseTest {
     private static final String INVALID_CREDENTIALS_VALIDATION_MESSAGE = "These credentials do not match our records.";
@@ -87,8 +84,8 @@ public class LoginPageTest extends BaseTest {
     public void verifyAdditionalLinkTransferring(String linkName, String expectedPageUrl) {
         loginPageService.openLoginPage()
                 .clickOnAdditionalLinkByName(linkName);
-//        String actualPageUrl = UiDriverActions.isAdditionalPageOpened();
-        Assert.assertTrue(UiDriverActions.isAdditionalPageOpened(expectedPageUrl), "Page url doesn't match expected");
+        String actualPageUrl = UiDriverActions.getSecondTabUrl();
+        Assert.assertEquals(actualPageUrl, expectedPageUrl, "Page url doesn't match expected");
     }
 
     @Test(description = "Verify live chat opening", priority = 8)
