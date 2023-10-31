@@ -9,6 +9,7 @@ import org.testng.annotations.Test;
 import ui.driver.UiDriverActions;
 import ui.model.Case;
 import ui.model.Project;
+import ui.model.Step;
 import ui.model.User;
 import ui.service.CasePageService;
 import ui.service.LoginPageService;
@@ -16,6 +17,8 @@ import ui.service.ProjectPageService;
 import ui.service.ProjectsListPageService;
 import utils.Enums;
 import utils.TestDataGenerator;
+
+import java.util.List;
 
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
 import static utils.TestDataGenerator.generateRandomString;
@@ -49,7 +52,8 @@ public class CasePageTest extends BaseTest {
     @Description("Successful case with attachment creation")
     public void verifySuccessfulCaseWithAttachmentCreation() {
         String attachmentName = "testAttachment";
-        Case testCase = new Case();
+        Case testCase = Case.builder()
+                .title("caseWithAttachment").build();
         loginPageService.login(new User())
                 .createNewProject(project)
                 .clickCreateCaseButton()
@@ -64,7 +68,9 @@ public class CasePageTest extends BaseTest {
     @Test(description = "Verify successful case with steps creation", priority = 2)
     @Description("Successful case with steps creation")
     public void verifySuccessfulCaseWithStepsCreation() {
-        Case testCase = new Case();
+        Case testCase = Case.builder()
+                .title("caseWithStep")
+                .steps(List.of(new Step())).build();
         projectPageService.clickCreateCaseButton()
                 .createTestCase(testCase)
                 .clickOnTestCaseByTitle(testCase.getTitle());
@@ -75,7 +81,8 @@ public class CasePageTest extends BaseTest {
     @Test(description = "Verify successful case with title only creation", priority = 3)
     @Description("Successful case with title only creation")
     public void verifySuccessfulCaseWithTitleOnlyCreation() {
-        Case testCase = new Case();
+        Case testCase = Case.builder()
+                .title(generateRandomString(2, 10)).build();
         projectPageService.clickCreateCaseButton()
                 .fillTitleField(testCase.getTitle())
                 .clickSaveButton();
@@ -86,7 +93,8 @@ public class CasePageTest extends BaseTest {
     @Test(description = "Verify title format validation", priority = 4, dataProvider = "Valid case titles list")
     @Description("Title format validation")
     public void verifyTitleFormatValidation(String caseTitle) {
-        Case testCase = new Case(caseTitle);
+        Case testCase = Case.builder()
+                .title(caseTitle).build();
         projectPageService.clickCreateCaseButton()
                 .fillTitleField(testCase.getTitle())
                 .clickSaveButton();
@@ -96,7 +104,8 @@ public class CasePageTest extends BaseTest {
     @Test(description = "Verify empty title validation", priority = 5)
     @Description("Empty title validation")
     public void verifyEmptyTitleValidation() {
-        Case testCase = new Case("");
+        Case testCase = Case.builder()
+                .title("").build();
         projectPageService.clickCreateCaseButton()
                 .fillTitleField(testCase.getTitle())
                 .clickSaveButton();
@@ -108,7 +117,9 @@ public class CasePageTest extends BaseTest {
     @Test(description = "Verify more than limit title validation", priority = 6)
     @Description("More than limit title validation")
     public void verifyMoreThanLimitTitleValidation() {
-        Case testCase = new Case(generateRandomString(256, 256));
+        Case testCase = Case.builder()
+                .title(generateRandomString(256, 256))
+                .build();
         projectPageService.clickCreateCaseButton()
                 .fillTitleField(testCase.getTitle())
                 .clickSaveButton();

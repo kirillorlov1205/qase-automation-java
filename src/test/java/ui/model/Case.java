@@ -1,19 +1,13 @@
 package ui.model;
 
-import utils.TestDataGenerator;
+import lombok.Builder;
 
 import java.util.List;
 
+@Builder
 public class Case {
-    private String title = TestDataGenerator.generateRandomString(1, 10);
-    private List<Step> steps = List.of(new Step());
-
-    public Case(String title) {
-        this.title = title;
-    }
-
-    public Case() {
-    }
+    private String title;
+    private List<Step> steps;
 
     public String getTitle() {
         return title;
