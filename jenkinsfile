@@ -10,6 +10,7 @@ pipeline {
         cron('0 8 1 * *')
     }
     parameters {
+        gitParameter defaultValue: 'chrome', name: 'BROWSER'
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
         choice(name: 'SUITE', choices: ['src/test/resources/testngConfigs/api-test.xml', 'src/test/resources/testngConfigs/regression-test.xml', 'src/test/resources/regression-test.xml'], description: 'Test suite')
     }
@@ -18,13 +19,13 @@ pipeline {
       stage('Testing') {
          steps {
             // Get some code from a GitHub repository
-            git branch: "${BRANCH}", url: 'https://github.com/kirillorlov1205/qase-automation.git'
+            git branch: "${params.BRANCH}", url: 'https://github.com/kirillorlov1205/qase-automation.git'
 
             // Run Maven on a Unix agent.
             //sh "mvn clean test"
 
             // To run Maven on a Windows agent, use
-            bat "mvn -Dmaven.test.failure.ignore=true -Dbrowser=chrome -Dsurefire.suiteXmlFiles=${SUITE} clean test"
+            bat "mvn -Dmaven.test.failure.ignore=true -Dbrowser=${params.BROWSER} -Dsurefire.suiteXmlFiles=${params.SUITE} clean test"
          }
 
          post {
