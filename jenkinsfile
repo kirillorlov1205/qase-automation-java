@@ -11,7 +11,10 @@ pipeline {
     }
     parameters {
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
-        choice(name: 'SUITE', choices: ['src/test/resources/testngConfigs/api-test.xml', 'src/test/resources/testngConfigs/regression-test.xml', 'src/test/resources/regression-test.xml'], description: 'Test suite')
+        choice(name: 'SUITE', choices: ['src/test/resources/testngConfigs/api-test.xml',
+        'src/test/resources/testngConfigs/regression-test.xml',
+        'src/test/resources/ui-test.xml',
+        'src/test/resources/unit-test.xml'], description: 'Test suite')
     }
 
    stages {
