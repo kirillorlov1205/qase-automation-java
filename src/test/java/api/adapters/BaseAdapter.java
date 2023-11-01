@@ -35,7 +35,7 @@ public class BaseAdapter {
                 .extract().response();
     }
 
-    public Response postWithoutBody(String url) {
+    public Response post(String url) {
         return given()
                 .log().all()
                 .header(TOKEN_NAME, TOKEN_VALUE)
@@ -60,7 +60,7 @@ public class BaseAdapter {
                 .extract().response();
     }
 
-    public Response patchWithoutBody(String url) {
+    public Response patch(String url) {
         return given()
                 .log().all()
                 .header(TOKEN_NAME, TOKEN_VALUE)

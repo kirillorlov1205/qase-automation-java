@@ -35,7 +35,7 @@ public class DefectAdapter extends BaseAdapter {
 
     public Response resolveSpecificDefect(String projectCode, String defectId) {
         log.info(String.format("Resolve specific defect by id '%s'", defectId));
-        return patchWithoutBody(DEFECT_API_ENDPOINT + projectCode + "/resolve" + defectId);
+        return patch(DEFECT_API_ENDPOINT + projectCode + "/resolve" + defectId);
     }
 
     public Response deleteDefectById(String projectCode, String defectId) {

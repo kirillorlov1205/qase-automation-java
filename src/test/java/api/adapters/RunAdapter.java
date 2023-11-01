@@ -30,7 +30,7 @@ public class RunAdapter extends BaseAdapter {
 
     public Response completeRun(String projectCode, String runId) {
         log.info(String.format("Complete run by run id '%s'", runId));
-        return postWithoutBody(RUN_API_ENDPOINT + projectCode + runId + "/complete");
+        return post(RUN_API_ENDPOINT + projectCode + runId + "/complete");
     }
 
     public Response deleteRunById(String projectCode, String runId) {
