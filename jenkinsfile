@@ -15,7 +15,6 @@ pipeline {
         choice(name: 'BROWSER', choices: ['chrome','firefox'], description: 'Run in browser')
         booleanParam(name: 'HEADLESS', defaultValue: true, description: 'Run mode')
         choice(name: 'SUITE', choices: ['src/test/resources/testngConfigs/api-test.xml',
-        'src/test/resources/testngConfigs/regression-test.xml',
         'src/test/resources/testngConfigs/ui-test.xml',
         'src/test/resources/testngConfigs/unit-test.xml'], description: 'Test suite')
     }
@@ -24,7 +23,8 @@ pipeline {
       stage('Testing') {
          steps {
             git branch: "${params.BRANCH}", url: 'https://github.com/kirillorlov1205/qase-automation.git'
-            bat "mvn -Dbrowser={params.BROWSER} -Dheadless=${params.HEADLESS} -Dmaven.test.failure.ignore=true -Dsurefire.suiteXmlFiles=${params.SUITE} clean test"
+            bat "mvn -Dbrowser={params.BROWSER} -Dheadless=${params.HEADLESS} -Dmaven.test.failure.ignore=true
+            -Dsurefire.suiteXmlFiles=${params.SUITE} clean test"
          }
 
          post {
