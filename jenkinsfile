@@ -23,8 +23,7 @@ pipeline {
       stage('Testing') {
          steps {
             git branch: "${params.BRANCH}", url: 'https://github.com/kirillorlov1205/qase-automation.git'
-            bat "mvn -Dbrowser={params.BROWSER} -Dheadless=${params.HEADLESS} -Dmaven.test.failure.ignore=true
-            -Dsurefire.suiteXmlFiles=${params.SUITE} clean test"
+            bat "mvn -Dbrowser={params.BROWSER} -Dheadless=${params.HEADLESS} -Dmaven.test.failure.ignore=true -Dsurefire.suiteXmlFiles=${params.SUITE} clean test"
          }
 
          post {
