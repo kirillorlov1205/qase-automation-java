@@ -1,15 +1,12 @@
 pipeline {
    agent any
-
    tools {
       maven "3.9.4"
       jdk "java"
    }
-
     triggers {
         cron('0 8 1 * *')
     }
-
     parameters {
         gitParameter branchFilter: 'origin/(.*)', defaultValue: 'main', name: 'BRANCH', type: 'PT_BRANCH'
         choice(name: 'BROWSER', choices: ['chrome','firefox'], description: 'Run in browser')
@@ -18,21 +15,18 @@ pipeline {
         'src/test/resources/testngConfigs/ui-test.xml',
         'src/test/resources/testngConfigs/unit-test.xml'], description: 'Test suite')
     }
-
    stages {
       stage('Testing') {
          steps {
             git branch: "${params.BRANCH}", url: 'https://github.com/kirillorlov1205/qase-automation.git'
             bat "mvn -Dbrowser={params.BROWSER} -Dheadless=${params.HEADLESS} -Dmaven.test.failure.ignore=true -Dsurefire.suiteXmlFiles=${params.SUITE} clean test"
          }
-
          post {
             success {
                junit '**/target/surefire-reports/TEST-*.xml'
             }
          }
       }
-
       stage('Reporting') {
          steps {
              script {
