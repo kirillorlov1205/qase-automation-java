@@ -5,6 +5,7 @@ import api.models.Project;
 import org.testng.Assert;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -21,7 +22,7 @@ public class ProjectTest {
                 .build();
     }
 
-    @Test(description = "New project creation", priority = 1)
+    @Test(description = "New project creation", priority = 1, retryAnalyzer = Retry.class)
     public void checkNewProjectCreation() {
         String createdProjectCode = new ProjectAdapter().createNewProject(project).body().path("result.code");
         Assert.assertEquals(createdProjectCode, project.getCode(), "created project code doesn't match expected");

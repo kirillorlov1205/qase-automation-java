@@ -9,6 +9,7 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 import org.testng.asserts.SoftAssert;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -38,7 +39,7 @@ public class DefectTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New Defect creation", priority = 1)
+    @Test(description = "New Defect creation", priority = 1, retryAnalyzer = Retry.class)
     public void checkNewDefectCreation() {
         int expectedDefectId = 1;
         int actualDefectId = new DefectAdapter().createNewDefect(project.getCode(), defect).body().path(
