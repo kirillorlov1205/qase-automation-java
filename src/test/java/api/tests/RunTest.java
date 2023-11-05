@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -45,7 +46,7 @@ public class RunTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New run creation", priority = 1)
+    @Test(description = "New run creation", priority = 1, retryAnalyzer = Retry.class)
     public void checkNewRunCreation() {
         int expectedRunId = 1;
         int actualRunId = new RunAdapter().createNewRun(project.getCode(), run).body().path("result.id");

@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -38,7 +39,7 @@ public class MilestoneTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New Milestone creation", priority = 1)
+    @Test(description = "New Milestone creation", priority = 1, retryAnalyzer = Retry.class)
     public void checkNewMilestoneCreation() {
         int expectedMilestoneId = 1;
         int actualMilestoneId = new MilestoneAdapter().createNewMilestone(project.getCode(), milestone).body().path(

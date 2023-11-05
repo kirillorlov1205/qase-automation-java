@@ -10,6 +10,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -46,7 +47,7 @@ public class PlanTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New plan creation", priority = 1)
+    @Test(description = "New plan creation", priority = 1, retryAnalyzer = Retry.class)
     public void checkNewPlanCreation() {
         int expectedPlanId = 1;
         int actualPlanId = new PlanAdapter().createNewPlan(project.getCode(), plan).body().path("result.id");

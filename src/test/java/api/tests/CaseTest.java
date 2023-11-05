@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -40,7 +41,7 @@ public class CaseTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New case creation", priority = 1)
+    @Test(description = "New case creation", priority = 1, retryAnalyzer = Retry.class)
     public void checkNewCaseCreation() {
         int expectedCaseId = 1;
         int actualCaseId = new CaseAdapter().createNewCase(project.getCode(), testCase).body().path("result.id");

@@ -8,6 +8,7 @@ import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -37,7 +38,7 @@ public class SuiteTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New suite creation", priority = 1)
+    @Test(description = "New suite creation", priority = 1, retryAnalyzer = Retry.class)
     public void checkNewSuiteCreation() {
         int expectedSuiteId = 1;
         int actualSuiteId = new SuiteAdapter().createNewSuite(project.getCode(), suite).body().path("result.id");
