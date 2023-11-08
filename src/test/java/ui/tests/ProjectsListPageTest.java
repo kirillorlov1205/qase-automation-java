@@ -25,9 +25,9 @@ public class ProjectsListPageTest extends BaseTest {
         projectPageService = new ProjectPageService();
     }
 
-    @Test(description = "Verify successful project creation", priority = 1)
+    @Test(description = "Check successful project creation", priority = 1)
     @Description("Successful project creation")
-    public void verifySuccessfulProjectCreation() {
+    public void checkSuccessfulProjectCreation() {
         Project project = Project.builder()
                 .projectName(generateRandomAlphabeticString(2, 10))
                 .projectCode("")
@@ -43,9 +43,9 @@ public class ProjectsListPageTest extends BaseTest {
                 "hasn't been created");
     }
 
-    @Test(description = "Verify empty project name validation", priority = 2)
+    @Test(description = "Check empty project name validation", priority = 2)
     @Description("Empty project name validation")
-    public void verifyEmptyProjectNameValidation() {
+    public void checkEmptyProjectNameValidation() {
         Project projectWithEmptyName = Project.builder()
                 .projectName("")
                 .projectCode(generateRandomAlphabeticString(2, 10))
@@ -57,9 +57,9 @@ public class ProjectsListPageTest extends BaseTest {
         Assert.assertTrue(projectPageService.isProjectPageNotOpened(), "Empty project name validation failed");
     }
 
-    @Test(description = "Verify automatic project code filling", priority = 4)
+    @Test(description = "Check automatic project code filling", priority = 4)
     @Description("Automatic project code filling")
-    public void verifyAutomaticProjectCodeFilling() {
+    public void checkAutomaticProjectCodeFilling() {
         Project projectWithEmptyCode = Project.builder()
                 .projectName(generateRandomAlphabeticString(2, 10))
                 .projectCode("")
@@ -75,9 +75,9 @@ public class ProjectsListPageTest extends BaseTest {
                 "Project code value not filled automatically");
     }
 
-    @Test(description = "Verify no automatic code filing with numeric project name", priority = 7)
+    @Test(description = "Check no automatic code filing with numeric project name", priority = 7)
     @Description("No automatic code filing with numeric project name")
-    public void verifyNoAutomaticCodeFilingWithNumericProjectName() {
+    public void checkNoAutomaticCodeFilingWithNumericProjectName() {
         Project projectWIthNumericName = Project.builder()
                 .projectName(generateRandomNumericString(2, 10))
                 .projectCode("")
@@ -90,9 +90,9 @@ public class ProjectsListPageTest extends BaseTest {
         Assert.assertTrue(projectsListPageService.isProjectCodeFieldEmpty(), "Project code field not empty");
     }
 
-    @Test(description = "Verify private member access selection", priority = 8)
+    @Test(description = "Check private member access selection", priority = 8)
     @Description("Private member access selection")
-    public void verifyPrivateMemberAccessSelection() {
+    public void checkPrivateMemberAccessSelection() {
         Project projectWIthPrivateAccess = Project.builder()
                 .projectName(generateRandomAlphabeticString(2, 10))
                 .projectCode(generateRandomAlphabeticString(2, 10))

@@ -4,6 +4,7 @@ import api.adapters.DefectAdapter;
 import api.adapters.ProjectAdapter;
 import api.models.Defect;
 import api.models.Project;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -39,7 +40,8 @@ public class DefectTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New Defect creation", priority = 1, retryAnalyzer = Retry.class)
+    @Test(description = "Check new Defect creation", priority = 1, retryAnalyzer = Retry.class)
+    @Description("New Defect creation")
     public void checkNewDefectCreation() {
         int expectedDefectId = 1;
         int actualDefectId = new DefectAdapter().createNewDefect(project.getCode(), defect).body().path(
@@ -47,7 +49,8 @@ public class DefectTest {
         Assert.assertEquals(actualDefectId, expectedDefectId, "Defect id doesn't match expected");
     }
 
-    @Test(description = "Defect without title creation validation", priority = 2)
+    @Test(description = "Check defect without title creation validation", priority = 2)
+    @Description("Defect without title creation validation")
     public void checkDefectWithoutTitleCreationValidation() {
         String expectedValidationMessage = "The title field is required.";
         Defect defectWithoutTitle = Defect.builder()
@@ -60,7 +63,8 @@ public class DefectTest {
                 " match expected");
     }
 
-    @Test(description = "Defect without 'actual result' creation validation", priority = 3)
+    @Test(description = "Check defect without 'actual result' creation validation", priority = 3)
+    @Description("Defect without 'actual result' creation validation")
     public void checkDefectWithoutActualResultCreationValidation() {
         String expectedValidationMessage = "The actual result field is required.";
         Defect defectWithoutActualResult = Defect.builder()
@@ -73,7 +77,8 @@ public class DefectTest {
                 " match expected");
     }
 
-    @Test(description = "Defect with zero 'severity' creation", priority = 4)
+    @Test(description = "Check defect with zero 'severity' creation", priority = 4)
+    @Description("Defect with zero 'severity' creation")
     public void checkDefectWithZeroSeverityCreation() {
         Defect defectWithZeroSeverity = Defect.builder()
                 .title(generateRandomAlphabeticString(2, 10))
@@ -84,7 +89,8 @@ public class DefectTest {
         Assert.assertEquals(statusCode, HTTP_OK, "Validation message doesn't match expected");
     }
 
-    @Test(description = "Defect without 'title' and 'actual result' creation", priority = 5)
+    @Test(description = "Check defect without 'title' and 'actual result' creation", priority = 5)
+    @Description("Defect without 'title' and 'actual result' creation")
     public void checkDefectWithoutTitleAndActualResultCreation() {
         String expectedEmptyActualResultValidationMessage = "The actual result field is required.";
         String expectedEmptyTitleValidationMessage = "The title field is required.";
@@ -103,7 +109,8 @@ public class DefectTest {
         softAssert.assertAll();
     }
 
-    @Test(description = "Get defect by id", priority = 6)
+    @Test(description = "Check get defect by id", priority = 6)
+    @Description("Get defect by id")
     public void checkGetDefectById() {
         String createdDefectTitle = new DefectAdapter().getDefectById(project.getCode(), DEFECT_ID).body().path(
                 "result.title");
@@ -111,7 +118,8 @@ public class DefectTest {
                 "expected");
     }
 
-    @Test(description = "Get defect by wrong id", priority = 7)
+    @Test(description = "Check get defect by wrong id", priority = 7)
+    @Description("Get defect by wrong id")
     public void checkGetDefectByWrongId() {
         String wrongDefectId = "/5";
         String expectedValidationMessage = "Defect not found";
@@ -121,7 +129,8 @@ public class DefectTest {
                 "match expected");
     }
 
-    @Test(description = "Get all defects", priority = 8)
+    @Test(description = "Check get all defects", priority = 8)
+    @Description("Get all defects")
     public void checkGetAllDefects() {
         int expectedDefectsQuantity = 2;
         int actualDefectQuantity = new DefectAdapter().getAllDefectsByProjectCode(project.getCode()).body().path(
@@ -130,7 +139,8 @@ public class DefectTest {
                 "expected");
     }
 
-    @Test(description = "Defect updating", priority = 9)
+    @Test(description = "Check defect updating", priority = 9)
+    @Description("Defect updating")
     public void checkDefectUpdating() {
         Defect updateDefect = Defect.builder()
                 .title(generateRandomAlphabeticString(2, 10))
@@ -141,7 +151,8 @@ public class DefectTest {
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");
     }
 
-    @Test(description = "Defect specific status updating", priority = 10)
+    @Test(description = "Check defect specific status updating", priority = 10)
+    @Description("Defect specific status updating")
     public void checkDefectSpecificStatusUpdating() {
         Defect defectWithStatus = Defect.builder()
                 .status("in_progress")
@@ -151,13 +162,15 @@ public class DefectTest {
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");
     }
 
-    @Test(description = "Specific defect resolving", priority = 11)
+    @Test(description = "Check specific defect resolving", priority = 11)
+    @Description("Specific defect resolving")
     public void checkSpecificDefectResolving() {
         int statusCode = new DefectAdapter().resolveSpecificDefect(project.getCode(), DEFECT_ID).statusCode();
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");
     }
 
-    @Test(description = "Defect deletion by id", priority = 12)
+    @Test(description = "Check defect deletion by id", priority = 12)
+    @Description("Defect deletion by id")
     public void checkDefectDeletionById() {
         int statusCode = new DefectAdapter().deleteDefectById(project.getCode(), DEFECT_ID).getStatusCode();
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match");

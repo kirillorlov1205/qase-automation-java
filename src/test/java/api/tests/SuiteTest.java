@@ -4,6 +4,7 @@ import api.adapters.ProjectAdapter;
 import api.adapters.SuiteAdapter;
 import api.models.Project;
 import api.models.Suite;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -38,14 +39,16 @@ public class SuiteTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New suite creation", priority = 1, retryAnalyzer = Retry.class)
+    @Test(description = "Check new suite creation", priority = 1, retryAnalyzer = Retry.class)
+    @Description("New suite creation")
     public void checkNewSuiteCreation() {
         int expectedSuiteId = 1;
         int actualSuiteId = new SuiteAdapter().createNewSuite(project.getCode(), suite).body().path("result.id");
         Assert.assertEquals(actualSuiteId, expectedSuiteId, "Suite id doesn't match expected");
     }
 
-    @Test(description = "Suite without title creation validation", priority = 2)
+    @Test(description = "Check suite without title creation validation", priority = 2)
+    @Description("Suite without title creation validation")
     public void checkSuiteWithoutTitleCreationValidation() {
         Suite suiteWithoutTitle = Suite.builder()
                 .description(generateRandomAlphabeticString(2, 10))
@@ -57,14 +60,16 @@ public class SuiteTest {
                 " match expected");
     }
 
-    @Test(description = "Get suite by id", priority = 3)
+    @Test(description = "Check get suite by id", priority = 3)
+    @Description("Get suite by id")
     public void checkGetSuiteById() {
         String createdSuiteTitle = new SuiteAdapter().getSuiteById(project.getCode(), SUITE_ID).body().path(
                 "result.title");
         Assert.assertEquals(createdSuiteTitle, suite.getTitle(), "Created suite title doesn't match expected");
     }
 
-    @Test(description = "Get suite by wrong id validation", priority = 4)
+    @Test(description = "Check get suite by wrong id validation", priority = 4)
+    @Description("Get suite by wrong id validation")
     public void checkGetSuiteByWrongIdValidation() {
         String wrongId = "/3";
         String expectedValidationMessage = "Suite not found";
@@ -74,7 +79,8 @@ public class SuiteTest {
                 "match expected");
     }
 
-    @Test(description = "Get all suites", priority = 5)
+    @Test(description = "Check get all suites", priority = 5)
+    @Description("Get all suites")
     public void checkGetAllSuites() {
         int expectedSuitesQuantity = 1;
         int actualSuitesQuantity = new SuiteAdapter().getAllSuitesByProjectCode(project.getCode()).body().path(
@@ -83,7 +89,8 @@ public class SuiteTest {
                 "expected");
     }
 
-    @Test(description = "Suite updating", priority = 6)
+    @Test(description = "Check suite updating", priority = 6)
+    @Description("Suite updating")
     public void checkSuiteUpdating() {
         Suite updateSuite = Suite.builder()
                 .title(generateRandomAlphabeticString(2, 10))
@@ -94,7 +101,8 @@ public class SuiteTest {
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");
     }
 
-    @Test(description = "Delete suite by id", priority = 7)
+    @Test(description = "Check delete suite by id", priority = 7)
+    @Description("Delete suite by id")
     public void checkSuiteDeletionById() {
         int statusCode = new SuiteAdapter().deleteSuiteById(project.getCode(), SUITE_ID).getStatusCode();
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");

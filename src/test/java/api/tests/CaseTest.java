@@ -4,6 +4,7 @@ import api.adapters.CaseAdapter;
 import api.adapters.ProjectAdapter;
 import api.models.Case;
 import api.models.Project;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -41,14 +42,16 @@ public class CaseTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New case creation", priority = 1, retryAnalyzer = Retry.class)
+    @Test(description = "Check new case creation", priority = 1, retryAnalyzer = Retry.class)
+    @Description("New case creation")
     public void checkNewCaseCreation() {
         int expectedCaseId = 1;
         int actualCaseId = new CaseAdapter().createNewCase(project.getCode(), testCase).body().path("result.id");
         Assert.assertEquals(actualCaseId, expectedCaseId, "Case id doesn't match expected");
     }
 
-    @Test(description = "Case without title creation validation", priority = 2)
+    @Test(description = "Check case without title creation validation", priority = 2)
+    @Description("Case without title creation validation")
     public void checkCaseWithoutTitleCreationValidation() {
         String expectedValidationMessage = "The title field is required.";
         Case caseWithoutTitle = Case.builder()
@@ -60,21 +63,24 @@ public class CaseTest {
                 "match expected");
     }
 
-    @Test(description = "New case creation in balk", priority = 3)
+    @Test(description = "Check new case creation in balk", priority = 3)
+    @Description("New case creation in balk")
     public void checkNewCaseCreationInBalk() {
         int expectedCaseId = 2;
         int actualCaseId = new CaseAdapter().createNewCase(project.getCode(), testCase).body().path("result.id");
         Assert.assertEquals(actualCaseId, expectedCaseId, "Case id doesn't match expected");
     }
 
-    @Test(description = "Get case by id", priority = 4)
+    @Test(description = "Check get case by id", priority = 4)
+    @Description("Get case by id")
     public void checkGetCaseById() {
         String createdCaseTitle = new CaseAdapter().getCaseById(project.getCode(), CASE_ID).body().path("result." +
                 "title");
         Assert.assertEquals(createdCaseTitle, testCase.getTitle(), "Created case title doesn't match expected");
     }
 
-    @Test(description = "Get case by wrong id validation", priority = 5)
+    @Test(description = "Check get case by wrong id validation", priority = 5)
+    @Description("Get case by wrong id validation")
     public void checkGetCaseByWrongIdValidation() {
         String wrongCaseId = "/5";
         String expectedValidationMessage = "TestCase not found";
@@ -84,7 +90,8 @@ public class CaseTest {
                 "match expected");
     }
 
-    @Test(description = "Get all cases", priority = 6)
+    @Test(description = "Check get all cases", priority = 6)
+    @Description("Get all cases")
     public void checkGetAllCases() {
         int expectedCasesQuantity = 2;
         int actualCasesQuantity = new CaseAdapter().getAllCasesByProjectCode(project.getCode()).body().path(
@@ -93,7 +100,8 @@ public class CaseTest {
                 "expected");
     }
 
-    @Test(description = "Case updating", priority = 7)
+    @Test(description = "Check case updating", priority = 7)
+    @Description("Case updating")
     public void checkCaseUpdating() {
         Case updateCase = Case.builder()
                 .title(generateRandomAlphabeticString(2, 10))
@@ -104,7 +112,8 @@ public class CaseTest {
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");
     }
 
-    @Test(description = "Case deletion by id", priority = 8)
+    @Test(description = "Check case deletion by id", priority = 8)
+    @Description("Case deletion by id")
     public void checkCaseDeletionById() {
         int statusCode = new CaseAdapter().deleteCaseById(project.getCode(), CASE_ID).getStatusCode();
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match");

@@ -21,9 +21,9 @@ public class PasswordResetPageTest extends BaseTest {
         loginPageService = new LoginPageService();
     }
 
-    @Test(description = "Verify successful password reset", priority = 1)
+    @Test(description = "Check successful password reset", priority = 1)
     @Description("Successful password reset")
-    public void verifySuccessfulPasswordReset() {
+    public void checkSuccessfulPasswordReset() {
         String actualValidationMessage = loginPageService
                 .clickForgotPasswordButton()
                 .fillEmail(new User().getEmail())
@@ -34,9 +34,9 @@ public class PasswordResetPageTest extends BaseTest {
                 "match expected");
     }
 
-    @Test(description = "Verify wrong reset password email validation", priority = 2)
+    @Test(description = "Check wrong reset password email validation", priority = 2)
     @Description("Wrong reset password email validation")
-    public void verifyWrongResetPasswordEmailValidation() {
+    public void checkWrongResetPasswordEmailValidation() {
         User userWithWrongEmail = new User("wrongEmail@gmail.com", "TestingPass1!");
         String actualValidationMessage = loginPageService
                 .clickForgotPasswordButton()
@@ -48,10 +48,10 @@ public class PasswordResetPageTest extends BaseTest {
                 "match expected");
     }
 
-    @Test(description = "Verify wrong reset password email format validation", priority = 3, dataProvider = "Wrong " +
+    @Test(description = "Check wrong reset password email format validation", priority = 3, dataProvider = "Wrong " +
             "format emails list", dataProviderClass = DataProviders.class)
     @Description("Wrong reset password email format validation")
-    public void verifyWrongResetPasswordEmailFormatValidation(String email) {
+    public void checkWrongResetPasswordEmailFormatValidation(String email) {
         String actualValidationMessage = loginPageService
                 .clickForgotPasswordButton()
                 .fillEmail(email)
@@ -62,17 +62,17 @@ public class PasswordResetPageTest extends BaseTest {
                 "match expected");
     }
 
-    @Test(description = "Verify navigation to 'Login page'", priority = 4)
+    @Test(description = "Check navigation to 'Login page'", priority = 4)
     @Description("Navigation to 'Login page'")
-    public void verifyNavigationToLoginPage() {
+    public void checkNavigationToLoginPage() {
         loginPageService.clickForgotPasswordButton()
                 .clickNavigateToLoginPageButton();
         Assert.assertTrue(loginPageService.isLoginPageOpened(), "Login page not opened");
     }
 
-    @Test(description = "Verify navigation to SSO Login page", priority = 4)
+    @Test(description = "Check navigation to SSO Login page", priority = 4)
     @Description("Navigation to 'SSO Login page'")
-    public void verifyNavigationToSsoLoginPage() {
+    public void checkNavigationToSsoLoginPage() {
         loginPageService.clickForgotPasswordButton()
                 .clickNavigateToSsoLoginPageButton();
         Assert.assertTrue(loginPageService.isSsoLoginPageOpened(), "Login page hasn't been opened");
