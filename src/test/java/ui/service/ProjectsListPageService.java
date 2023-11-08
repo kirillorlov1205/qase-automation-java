@@ -10,7 +10,7 @@ import utils.Enums;
 public class ProjectsListPageService {
     private ProjectsListPage projectsListPage;
 
-    @Step("Verify if projects ui.page displayed")
+    @Step("Verify if projects page displayed")
     public boolean isProjectsPageDisplayed() {
         projectsListPage = new ProjectsListPage();
         return projectsListPage.isProjectsPageDisplayed();
@@ -43,7 +43,7 @@ public class ProjectsListPageService {
         return this;
     }
 
-    @Step("Opening 'Projects list' ui.page")
+    @Step("Opening 'Projects list' page")
     public ProjectsListPageService openProjectsListPage() {
         projectsListPage = new ProjectsListPage();
         projectsListPage.openProjectsListPage();

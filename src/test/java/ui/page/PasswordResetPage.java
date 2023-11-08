@@ -39,13 +39,13 @@ public class PasswordResetPage extends BasePage {
     }
 
     public LoginPage clickNavigateToLoginPageButton() {
-        log.info("Click 'Navigate to Login ui.page' button");
+        log.info("Click 'Navigate to Login page' button");
         navigateToLoginPageButton.click();
         return new LoginPage();
     }
 
     public LoginPage clickNavigateToSsoLoginPage() {
-        log.info("Click 'Navigate to SSO Login ui.page' button");
+        log.info("Click 'Navigate to SSO Login page' button");
         navigateToSsoLoginPageButton.click();
         return new LoginPage();
     }
