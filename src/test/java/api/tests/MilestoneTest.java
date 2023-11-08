@@ -4,6 +4,7 @@ import api.adapters.MilestoneAdapter;
 import api.adapters.ProjectAdapter;
 import api.models.Milestone;
 import api.models.Project;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
@@ -39,7 +40,8 @@ public class MilestoneTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New Milestone creation", priority = 1, retryAnalyzer = Retry.class)
+    @Test(description = "Check new Milestone creation", priority = 1, retryAnalyzer = Retry.class)
+    @Description("New Milestone creation")
     public void checkNewMilestoneCreation() {
         int expectedMilestoneId = 1;
         int actualMilestoneId = new MilestoneAdapter().createNewMilestone(project.getCode(), milestone).body().path(
@@ -47,7 +49,8 @@ public class MilestoneTest {
         Assert.assertEquals(actualMilestoneId, expectedMilestoneId, "Milestone id doesn't match expected");
     }
 
-    @Test(description = "Milestone without title creation validation", priority = 2)
+    @Test(description = "Check milestone without title creation validation", priority = 2)
+    @Description("Milestone without title creation validation")
     public void checkMilestoneWithoutTitleCreationValidation() {
         String expectedValidationMessage = "The title field is required.";
         Milestone milestoneWithoutTitle = Milestone.builder()
@@ -59,7 +62,8 @@ public class MilestoneTest {
                 " match expected");
     }
 
-    @Test(description = "Get milestone by id", priority = 3)
+    @Test(description = "Check get milestone by id", priority = 3)
+    @Description("Get milestone by id")
     public void checkGetMilestoneById() {
         String createdMilestoneTitle = new MilestoneAdapter().getMilestoneById(project.getCode(), MILESTONE_ID).body()
                 .path("result.title");
@@ -67,7 +71,8 @@ public class MilestoneTest {
                 "match expected");
     }
 
-    @Test(description = "Get milestone by wrong id", priority = 4)
+    @Test(description = "Check get milestone by wrong id", priority = 4)
+    @Description("Get milestone by wrong id")
     public void checkGetMilestoneByWrongId() {
         String wrongMilestoneId = "/5";
         String expectedValidationMessage = "Milestone not found";
@@ -77,7 +82,8 @@ public class MilestoneTest {
                 "match expected");
     }
 
-    @Test(description = "Get all milestones", priority = 5)
+    @Test(description = "Check get all milestones", priority = 5)
+    @Description("Get all milestones")
     public void checkGetAllMilestones() {
         int expectedMilestonesQuantity = 1;
         int actualMilestonesQuantity = new MilestoneAdapter().getAllMilestonesByProjectCode(project.getCode()).body()
@@ -86,7 +92,8 @@ public class MilestoneTest {
                 "doesn't match expected");
     }
 
-    @Test(description = "Milestone updating", priority = 6)
+    @Test(description = "Check milestone updating", priority = 6)
+    @Description("Milestone updating")
     public void checkMilestoneUpdating() {
         Milestone updateMilestone = Milestone.builder()
                 .title(generateRandomAlphabeticString(2, 10))
@@ -97,7 +104,8 @@ public class MilestoneTest {
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");
     }
 
-    @Test(description = "Milestone deletion by id", priority = 7)
+    @Test(description = "Check milestone deletion by id", priority = 7)
+    @Description("Milestone deletion by id")
     public void checkMilestoneDeletionById() {
         int statusCode = new MilestoneAdapter().deleteMilestoneById(project.getCode(), MILESTONE_ID).getStatusCode();
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match");

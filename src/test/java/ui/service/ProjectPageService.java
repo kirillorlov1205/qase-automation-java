@@ -13,7 +13,7 @@ public class ProjectPageService {
         return projectPage.getProjectTitle();
     }
 
-    @Step("Verifying if 'Project ui.page' not opened")
+    @Step("Verifying if 'Project page' not opened")
     public boolean isProjectPageNotOpened() {
         projectPage = new ProjectPage();
         return projectPage.isProjectPageNotOpened();

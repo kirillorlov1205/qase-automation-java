@@ -52,13 +52,13 @@ public class LoginPageService {
         return new PasswordResetPageService();
     }
 
-    @Step("Verifying if 'Login ui.page' opened")
+    @Step("Verifying if 'Login page' opened")
     public boolean isLoginPageOpened() {
         loginPage = new LoginPage();
         return loginPage.isLoginPageOpened();
     }
 
-    @Step("Verifying if 'SSO Login ui.page' opened")
+    @Step("Verifying if 'SSO Login page' opened")
     public boolean isSsoLoginPageOpened() {
         loginPage = new LoginPage();
         return loginPage.isSsoLoginPageOpened();
@@ -71,7 +71,7 @@ public class LoginPageService {
         return this;
     }
 
-    @Step("Opening 'Login ui.page'")
+    @Step("Opening 'Login page'")
     public LoginPageService openLoginPage() {
         loginPage = new LoginPage();
         loginPage.openLoginPage();
