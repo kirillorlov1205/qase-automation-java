@@ -40,7 +40,7 @@ public class LoginPageTest extends BaseTest {
                 "match expected");
     }
 
-    @Test(description = "Check wrong password validation", priority = 3, dataProvider = "Wrong passwords list")
+    @Test(description = "Check wrong password validation", priority = 3, dataProvider = "getWrongPasswordsList")
     @Description("Wrong password validation")
     public void checkWrongPasswordValidation(String wrongPassword) {
         User userWithWrongPassword = new User("test12051@mail.ru", wrongPassword);
@@ -69,7 +69,7 @@ public class LoginPageTest extends BaseTest {
                 "validation message hasn't been shown");
     }
 
-    @Test(description = "Check wrong email format validation", priority = 6, dataProvider = "Wrong format emails list",
+    @Test(description = "Check wrong email format validation", priority = 6, dataProvider = "getWrongFormatEmailsList",
             dataProviderClass = DataProviders.class)
     @Description("Wrong email format validation")
     public void checkWrongEmailFormatValidation(String email) {
@@ -82,7 +82,7 @@ public class LoginPageTest extends BaseTest {
                 "match expected");
     }
 
-    @Test(description = "Check additional link transferring", priority = 7, dataProvider = "Additional links list")
+    @Test(description = "Check additional link transferring", priority = 7, dataProvider = "getAdditionalLinksList")
     @Description("Additional link transferring")
     public void checkAdditionalLinkTransferring(String linkName, String expectedPageUrl) {
         loginPageService.openLoginPage()
@@ -100,7 +100,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @DataProvider(name = "Wrong passwords list")
-    private Object[][] wrongPasswordsList() {
+    private Object[][] getWrongPasswordsList() {
         return new Object[][]{
                 {"WrongTestingPass1!"},
                 {"<script>alert(123)</script>"},
@@ -109,7 +109,7 @@ public class LoginPageTest extends BaseTest {
     }
 
     @DataProvider(name = "Additional links list")
-    private Object[][] additionalLinksList() {
+    private Object[][] getAdditionalLinksList() {
         return new Object[][]
                 {
                         {"YouTube", "https://www.youtube.com/playlist?list=PLt75o-m3IfmzbfsuO6Ey-mZgvEtLkWJnD"},

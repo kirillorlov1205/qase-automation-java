@@ -90,7 +90,7 @@ public class CasePageTest extends BaseTest {
                 "not created");
     }
 
-    @Test(description = "Check title format validation", priority = 4, dataProvider = "Valid case titles list")
+    @Test(description = "Check title format validation", priority = 4, dataProvider = "getValidCaseTitlesList")
     @Description("Title format validation")
     public void checkTitleFormatValidation(String caseTitle) {
         Case testCase = Case.builder()
@@ -132,7 +132,7 @@ public class CasePageTest extends BaseTest {
     }
 
     @DataProvider(name = "Valid case titles list")
-    private Object[][] validCaseTitlesList() {
+    private Object[][] getValidCaseTitlesList() {
         return new Object[][]{
                 {TestDataGenerator.generateRandomNumericString(2, 10)},
                 {TestDataGenerator.generateRandomAlphabeticString(2, 10)},
