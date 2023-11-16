@@ -27,7 +27,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check valid email validation", priority = 2, dataProvider = "getValidEmailsList")
+    @Test(testName = "Check valid email validation", priority = 2, dataProvider = "Valid emails list")
     @Description("Valid email validation")
     public void checkValidEmailValidation(String validEmail) {
         User userWithValidEmail = User.builder()
@@ -41,7 +41,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check invalid email validation", priority = 3, dataProvider = "getInvalidEmailsList")
+    @Test(testName = "Check invalid email validation", priority = 3, dataProvider = "Invalid emails list")
     @Description("Invalid email validation")
     public void checkInvalidEmailValidation(String invalidEmail) {
         User userWithInvalidEmail = User.builder()
@@ -55,7 +55,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check valid password validation", priority = 4, dataProvider = "getValidPasswordsList")
+    @Test(testName = "Check valid password validation", priority = 4, dataProvider = "Valid passwords list")
     @Description("Valid password validation")
     public void checkSuccessfulPasswordValidation(String validPassword) {
         User userWithValidPassword = User.builder()
@@ -69,7 +69,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check invalid password validation", priority = 5, dataProvider = "getInvalidPasswordsList")
+    @Test(testName = "Check invalid password validation", priority = 5, dataProvider = "Invalid passwords list")
     @Description("Invalid password validation")
     public void checkInvalidPasswordValidation(String invalidPassword) {
         User userWithInvalidPassword = User.builder()
@@ -83,7 +83,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check valid login validation", priority = 6, dataProvider = "getValidLoginsList")
+    @Test(testName = "Check valid login validation", priority = 6, dataProvider = "Valid logins list")
     @Description("Valid login validation")
     public void checkValidLoginValidation(String validLogin) {
         User userWithValidLogin = User.builder()
@@ -97,7 +97,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check invalid login validation", priority = 7, dataProvider = "getInvalidLoginsList")
+    @Test(testName = "Check invalid login validation", priority = 7, dataProvider = "Invalid logins list")
     @Description("Invalid login validation")
     public void checkInvalidLoginValidation(String invalidLogin) {
         User userWithInvalidLogin = User.builder()
