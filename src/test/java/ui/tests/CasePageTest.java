@@ -90,7 +90,7 @@ public class CasePageTest extends BaseTest {
                 "not created");
     }
 
-    @Test(description = "Check title format validation", priority = 4, dataProvider = "getValidCaseTitlesList")
+    @Test(description = "Check title format validation", priority = 4, dataProvider = "Valid case titles list")
     @Description("Title format validation")
     public void checkTitleFormatValidation(String caseTitle) {
         Case testCase = Case.builder()
