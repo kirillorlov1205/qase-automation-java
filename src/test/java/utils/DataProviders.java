@@ -4,7 +4,7 @@ import org.testng.annotations.DataProvider;
 
 public class DataProviders {
     @DataProvider(name = "Wrong format emails list")
-    public static Object[][] wrongFormatEmailsList() {
+    public static Object[][] getWrongFormatEmailsList() {
         return new Object[][]{
                 {"abc.def@mail#archive.com"},
                 {"abc..def@mail.com"},

@@ -62,7 +62,7 @@ public class ProjectsListPage extends BasePage {
     public ProjectsListPage fillProjectCode(String projectCode) {
         log.info("Fill 'Project code'");
         Waiter.waitElementToBeDisplayed(projectCodeField).clear();
-        Waiter.waitElementToBeDisplayed(projectCodeField).sendKeys(projectCode);
+        projectCodeField.sendKeys(projectCode);
         return this;
     }
 

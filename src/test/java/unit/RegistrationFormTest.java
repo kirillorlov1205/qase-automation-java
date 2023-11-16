@@ -27,7 +27,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check valid email validation", priority = 2, dataProvider = "Valid emails list")
+    @Test(testName = "Check valid email validation", priority = 2, dataProvider = "getValidEmailsList")
     @Description("Valid email validation")
     public void checkValidEmailValidation(String validEmail) {
         User userWithValidEmail = User.builder()
@@ -41,7 +41,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check invalid email validation", priority = 3, dataProvider = "Invalid emails list")
+    @Test(testName = "Check invalid email validation", priority = 3, dataProvider = "getInvalidEmailsList")
     @Description("Invalid email validation")
     public void checkInvalidEmailValidation(String invalidEmail) {
         User userWithInvalidEmail = User.builder()
@@ -55,7 +55,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check valid password validation", priority = 4, dataProvider = "Valid passwords list")
+    @Test(testName = "Check valid password validation", priority = 4, dataProvider = "getValidPasswordsList")
     @Description("Valid password validation")
     public void checkSuccessfulPasswordValidation(String validPassword) {
         User userWithValidPassword = User.builder()
@@ -69,7 +69,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check invalid password validation", priority = 5, dataProvider = "Invalid passwords list")
+    @Test(testName = "Check invalid password validation", priority = 5, dataProvider = "getInvalidPasswordsList")
     @Description("Invalid password validation")
     public void checkInvalidPasswordValidation(String invalidPassword) {
         User userWithInvalidPassword = User.builder()
@@ -83,7 +83,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check valid login validation", priority = 6, dataProvider = "Valid logins list")
+    @Test(testName = "Check valid login validation", priority = 6, dataProvider = "getValidLoginsList")
     @Description("Valid login validation")
     public void checkValidLoginValidation(String validLogin) {
         User userWithValidLogin = User.builder()
@@ -97,7 +97,7 @@ public class RegistrationFormTest {
                 "match expected");
     }
 
-    @Test(testName = "Check invalid login validation", priority = 7, dataProvider = "Invalid logins list")
+    @Test(testName = "Check invalid login validation", priority = 7, dataProvider = "getInvalidLoginsList")
     @Description("Invalid login validation")
     public void checkInvalidLoginValidation(String invalidLogin) {
         User userWithInvalidLogin = User.builder()
@@ -126,7 +126,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Valid emails list")
-    private Object[][] validEmailsList() {
+    private Object[][] getValidEmailsList() {
         return new Object[][]{
                 {"abc-d@mail.com"},
                 {"abc.def@mail.com"},
@@ -137,7 +137,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Invalid emails list")
-    private Object[][] invalidEmailsList() {
+    private Object[][] getInvalidEmailsList() {
         return new Object[][]{
                 {"abc-@mail.com"},
                 {"abc..def@mail.com"},
@@ -150,7 +150,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Valid passwords list")
-    private Object[][] validPasswordsList() {
+    private Object[][] getValidPasswordsList() {
         return new Object[][]{
                 {"testPass1234"},
                 {"testPas1"},
@@ -158,7 +158,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Invalid passwords list")
-    private Object[][] invalidPasswordsList() {
+    private Object[][] getInvalidPasswordsList() {
         return new Object[][]{
                 {"testpass1"},
                 {"TESTPASS1"},
@@ -169,7 +169,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Valid logins list")
-    private Object[][] validLoginsList() {
+    private Object[][] getValidLoginsList() {
         return new Object[][]{
                 {"testLo"},
                 {"testLogin123"},
@@ -177,7 +177,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Invalid logins list")
-    private Object[][] invalidLoginsList() {
+    private Object[][] getInvalidLoginsList() {
         return new Object[][]{
                 {"testlogin"},
                 {"TESTLOGIN"},

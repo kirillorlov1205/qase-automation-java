@@ -105,7 +105,7 @@ public class DefectTest {
         softAssert.assertEquals(actualEmptyActualResultValidationMessage, expectedEmptyActualResultValidationMessage,
                 "empty actual result validation message doesn't match expected");
         softAssert.assertEquals(actualEmptyTitleValidationMessage, expectedEmptyTitleValidationMessage,
-                "empty actual result validation message doesn't match expected");
+                "empty title validation message doesn't match expected");
         softAssert.assertAll();
     }
 
