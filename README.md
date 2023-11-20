@@ -18,7 +18,7 @@
 - HTTP/HTTPS
 - Lombok
 
-#### Unit tests for function RegistrationForm using tools:
+#### Unit tests for RegistrationForm using tools:
 Registration form path: 'src\main\java\registrationForm\RegistrationForm.java'
 
 - TestNG
