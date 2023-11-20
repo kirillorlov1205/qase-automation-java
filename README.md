@@ -7,7 +7,7 @@
 - Selenium
 - Maven
 - TestNG
-- Lambok
+- Lombok
 - webdrivermanager
 - Log4j
 
@@ -16,10 +16,10 @@
 - RestAssured
 - TestNG
 - HTTP/HTTPS
-- Lambok
+- Lombok
 
 #### Unit tests for function RegistrationForm using tools:
 Registration form path: 'src\main\java\registrationForm\RegistrationForm.java'
 
 - TestNG
-- Lambok
+- Lombok
