@@ -79,7 +79,7 @@ public class LoginPage extends BasePage {
     }
 
     public LoginPage openLoginPage() {
-        log.info("Open 'Login' ui.page");
+        log.info("Open 'Login' page");
         UiDriverActions.openPage(LOGIN_PAGE_URL);
         return this;
     }

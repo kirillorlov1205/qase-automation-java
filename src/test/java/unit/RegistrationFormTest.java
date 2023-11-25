@@ -1,5 +1,6 @@
 package unit;
 
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
@@ -19,6 +20,7 @@ public class RegistrationFormTest {
             .build();
 
     @Test(testName = "Check successful registration", priority = 1)
+    @Description("Successful registration")
     public void checkSuccessfulRegistration() {
         String validationMessage = registrationForm.register(USER_WITH_VALID_CREDENTIALS);
         Assert.assertEquals(validationMessage, SUCCESSFUL_REGISTRATION_MESSAGE, "Validation message doesn't" +
@@ -26,6 +28,7 @@ public class RegistrationFormTest {
     }
 
     @Test(testName = "Check valid email validation", priority = 2, dataProvider = "Valid emails list")
+    @Description("Valid email validation")
     public void checkValidEmailValidation(String validEmail) {
         User userWithValidEmail = User.builder()
                 .email(validEmail)
@@ -39,6 +42,7 @@ public class RegistrationFormTest {
     }
 
     @Test(testName = "Check invalid email validation", priority = 3, dataProvider = "Invalid emails list")
+    @Description("Invalid email validation")
     public void checkInvalidEmailValidation(String invalidEmail) {
         User userWithInvalidEmail = User.builder()
                 .email(invalidEmail)
@@ -52,6 +56,7 @@ public class RegistrationFormTest {
     }
 
     @Test(testName = "Check valid password validation", priority = 4, dataProvider = "Valid passwords list")
+    @Description("Valid password validation")
     public void checkSuccessfulPasswordValidation(String validPassword) {
         User userWithValidPassword = User.builder()
                 .email(USER_WITH_VALID_CREDENTIALS.getEmail())
@@ -65,6 +70,7 @@ public class RegistrationFormTest {
     }
 
     @Test(testName = "Check invalid password validation", priority = 5, dataProvider = "Invalid passwords list")
+    @Description("Invalid password validation")
     public void checkInvalidPasswordValidation(String invalidPassword) {
         User userWithInvalidPassword = User.builder()
                 .email(USER_WITH_VALID_CREDENTIALS.getEmail())
@@ -78,6 +84,7 @@ public class RegistrationFormTest {
     }
 
     @Test(testName = "Check valid login validation", priority = 6, dataProvider = "Valid logins list")
+    @Description("Valid login validation")
     public void checkValidLoginValidation(String validLogin) {
         User userWithValidLogin = User.builder()
                 .email(USER_WITH_VALID_CREDENTIALS.getEmail())
@@ -91,6 +98,7 @@ public class RegistrationFormTest {
     }
 
     @Test(testName = "Check invalid login validation", priority = 7, dataProvider = "Invalid logins list")
+    @Description("Invalid login validation")
     public void checkInvalidLoginValidation(String invalidLogin) {
         User userWithInvalidLogin = User.builder()
                 .email(USER_WITH_VALID_CREDENTIALS.getEmail())
@@ -104,6 +112,7 @@ public class RegistrationFormTest {
     }
 
     @Test(testName = "Check wrong confirm password validation", priority = 8)
+    @Description("Wrong confirm password validation")
     public void checkWrongConfirmPasswordValidation() {
         User userWithWrongConfirmPassword = User.builder()
                 .email(USER_WITH_VALID_CREDENTIALS.getEmail())
@@ -117,7 +126,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Valid emails list")
-    private Object[][] validEmailsList() {
+    private Object[][] getValidEmailsList() {
         return new Object[][]{
                 {"abc-d@mail.com"},
                 {"abc.def@mail.com"},
@@ -128,7 +137,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Invalid emails list")
-    private Object[][] invalidEmailsList() {
+    private Object[][] getInvalidEmailsList() {
         return new Object[][]{
                 {"abc-@mail.com"},
                 {"abc..def@mail.com"},
@@ -141,7 +150,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Valid passwords list")
-    private Object[][] validPasswordsList() {
+    private Object[][] getValidPasswordsList() {
         return new Object[][]{
                 {"testPass1234"},
                 {"testPas1"},
@@ -149,7 +158,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Invalid passwords list")
-    private Object[][] invalidPasswordsList() {
+    private Object[][] getInvalidPasswordsList() {
         return new Object[][]{
                 {"testpass1"},
                 {"TESTPASS1"},
@@ -160,7 +169,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Valid logins list")
-    private Object[][] validLoginsList() {
+    private Object[][] getValidLoginsList() {
         return new Object[][]{
                 {"testLo"},
                 {"testLogin123"},
@@ -168,7 +177,7 @@ public class RegistrationFormTest {
     }
 
     @DataProvider(name = "Invalid logins list")
-    private Object[][] invalidLoginsList() {
+    private Object[][] getInvalidLoginsList() {
         return new Object[][]{
                 {"testlogin"},
                 {"TESTLOGIN"},

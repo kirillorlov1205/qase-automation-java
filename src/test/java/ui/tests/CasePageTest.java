@@ -48,9 +48,9 @@ public class CasePageTest extends BaseTest {
         projectsListPageService.deleteProjectByCode(project.getProjectCode());
     }
 
-    @Test(description = "Verify successful case with steps creation", priority = 1)
+    @Test(description = "Check successful case with steps creation", priority = 1)
     @Description("Successful case with steps creation")
-    public void verifySuccessfulCaseWithStepsCreation() {
+    public void checkSuccessfulCaseWithStepsCreation() {
         Case testCase = Case.builder()
                 .title("caseWithStep")
                 .steps(List.of(new Step())).build();
@@ -63,9 +63,9 @@ public class CasePageTest extends BaseTest {
                 "steps not created");
     }
 
-    @Test(description = "Verify successful case with attachment creation ", priority = 2)
+    @Test(description = "Check successful case with attachment creation ", priority = 2)
     @Description("Successful case with attachment creation")
-    public void verifySuccessfulCaseWithAttachmentCreation() {
+    public void checkSuccessfulCaseWithAttachmentCreation() {
         String attachmentName = "testAttachment";
         Case testCase = Case.builder()
                 .title("caseWithAttachment").build();
@@ -78,9 +78,9 @@ public class CasePageTest extends BaseTest {
                 "case with attachment not created");
     }
 
-    @Test(description = "Verify successful case with title only creation", priority = 3)
+    @Test(description = "Check successful case with title only creation", priority = 3)
     @Description("Successful case with title only creation")
-    public void verifySuccessfulCaseWithTitleOnlyCreation() {
+    public void checkSuccessfulCaseWithTitleOnlyCreation() {
         Case testCase = Case.builder()
                 .title(generateRandomString(2, 10)).build();
         projectPageService.clickCreateCaseButton()
@@ -90,9 +90,9 @@ public class CasePageTest extends BaseTest {
                 "not created");
     }
 
-    @Test(description = "Verify title format validation", priority = 4, dataProvider = "Valid case titles list")
+    @Test(description = "Check title format validation", priority = 4, dataProvider = "Valid case titles list")
     @Description("Title format validation")
-    public void verifyTitleFormatValidation(String caseTitle) {
+    public void checkTitleFormatValidation(String caseTitle) {
         Case testCase = Case.builder()
                 .title(caseTitle).build();
         projectPageService.clickCreateCaseButton()
@@ -101,9 +101,9 @@ public class CasePageTest extends BaseTest {
         Assert.assertTrue(projectPageService.isCaseCreatedInProject(testCase), "New case not created");
     }
 
-    @Test(description = "Verify empty title validation", priority = 5)
+    @Test(description = "Check empty title validation", priority = 5)
     @Description("Empty title validation")
-    public void verifyEmptyTitleValidation() {
+    public void checkEmptyTitleValidation() {
         Case testCase = Case.builder()
                 .title("").build();
         projectPageService.clickCreateCaseButton()
@@ -114,9 +114,9 @@ public class CasePageTest extends BaseTest {
         Assert.assertTrue(isProjectPageNotOpened, "Empty title validation failed");
     }
 
-    @Test(description = "Verify more than limit title validation", priority = 6)
+    @Test(description = "Check more than limit title validation", priority = 6)
     @Description("More than limit title validation")
-    public void verifyMoreThanLimitTitleValidation() {
+    public void checkMoreThanLimitTitleValidation() {
         Case testCase = Case.builder()
                 .title(generateRandomString(256, 256))
                 .build();
@@ -132,7 +132,7 @@ public class CasePageTest extends BaseTest {
     }
 
     @DataProvider(name = "Valid case titles list")
-    private Object[][] validCaseTitlesList() {
+    private Object[][] getValidCaseTitlesList() {
         return new Object[][]{
                 {TestDataGenerator.generateRandomNumericString(2, 10)},
                 {TestDataGenerator.generateRandomAlphabeticString(2, 10)},

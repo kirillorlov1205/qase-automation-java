@@ -6,10 +6,12 @@ import api.adapters.ProjectAdapter;
 import api.models.Case;
 import api.models.Plan;
 import api.models.Project;
+import io.qameta.allure.Description;
 import org.testng.Assert;
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
+import utils.Retry;
 
 import static java.net.HttpURLConnection.HTTP_OK;
 import static utils.TestDataGenerator.generateRandomAlphabeticString;
@@ -18,7 +20,6 @@ public class PlanTest {
     private static final String PLAN_ID = "/1";
     private Project project;
     private Plan plan;
-    private Case testCase;
 
     @BeforeClass
     public void setUp() {
@@ -32,7 +33,7 @@ public class PlanTest {
                 .description(generateRandomAlphabeticString(2, 10))
                 .cases(new int[]{1, 2})
                 .build();
-        testCase = Case.builder()
+        Case testCase = Case.builder()
                 .title(generateRandomAlphabeticString(2, 10))
                 .type(1)
                 .build();
@@ -46,14 +47,16 @@ public class PlanTest {
         new ProjectAdapter().deleteProjectByCode(project.getCode());
     }
 
-    @Test(description = "New plan creation", priority = 1)
+    @Test(description = "Check new plan creation", priority = 1, retryAnalyzer = Retry.class)
+    @Description("New plan creation")
     public void checkNewPlanCreation() {
         int expectedPlanId = 1;
         int actualPlanId = new PlanAdapter().createNewPlan(project.getCode(), plan).body().path("result.id");
         Assert.assertEquals(actualPlanId, expectedPlanId, "Plan id doesn't match expected");
     }
 
-    @Test(description = "Plan without title creation validation", priority = 2)
+    @Test(description = "Check plan without title creation validation", priority = 2)
+    @Description("Plan without title creation validation")
     public void checkPlanWithoutTitleCreationValidation() {
         String expectedValidationMessage = "The title field is required.";
         Plan planWithoutTitle = Plan.builder()
@@ -65,7 +68,8 @@ public class PlanTest {
                 "doesn't match expected");
     }
 
-    @Test(description = "Plan without cases validation", priority = 3)
+    @Test(description = "Check plan without cases validation", priority = 3)
+    @Description("Plan without cases validation")
     public void checkPlanWithoutCasesValidation() {
         String expectedValidationMessage = "Data is invalid.";
         Plan planWithoutCases = Plan.builder()
@@ -77,14 +81,16 @@ public class PlanTest {
                 "doesn't match expected");
     }
 
-    @Test(description = "Get plan by id", priority = 4)
+    @Test(description = "Check get plan by id", priority = 4)
+    @Description("Get plan by id")
     public void checkGetPlanById() {
         String createdPlanTitle = new PlanAdapter().getPlanById(project.getCode(), PLAN_ID).body().path("result." +
                 "title");
         Assert.assertEquals(createdPlanTitle, plan.getTitle(), "Created plan title doesn't match expected");
     }
 
-    @Test(description = "Get plan by wrong id", priority = 5)
+    @Test(description = "Check get plan by wrong id", priority = 5)
+    @Description("Get plan by wrong id")
     public void checkGetPlanByWrongId() {
         String wrongPlanId = "/5";
         String expectedValidationMessage = "Plan not found";
@@ -94,7 +100,8 @@ public class PlanTest {
                 "match expected");
     }
 
-    @Test(description = "Get all plans", priority = 6)
+    @Test(description = "Check get all plans", priority = 6)
+    @Description("Get all plans")
     public void checkGetAllPlans() {
         int expectedPlanQuantity = 1;
         int actualPlansQuantity = new PlanAdapter().getAllPlansByProjectCode(project.getCode()).body().path(
@@ -102,7 +109,8 @@ public class PlanTest {
         Assert.assertEquals(actualPlansQuantity, expectedPlanQuantity, "Plans quantity doesn't match expected");
     }
 
-    @Test(description = "Plan updating", priority = 7)
+    @Test(description = "Check plan updating", priority = 7)
+    @Description("Plan updating")
     public void checkPlanUpdating() {
         Plan updatePlan = Plan.builder()
                 .title(generateRandomAlphabeticString(2, 10))
@@ -112,7 +120,8 @@ public class PlanTest {
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match expected");
     }
 
-    @Test(description = "Plan deletion by id", priority = 8)
+    @Test(description = "Check plan deletion by id", priority = 8)
+    @Description("Plan deletion by id")
     public void checkPlanDeletionById() {
         int statusCode = new PlanAdapter().deletePlanById(project.getCode(), PLAN_ID).getStatusCode();
         Assert.assertEquals(statusCode, HTTP_OK, "Status code doesn't match");

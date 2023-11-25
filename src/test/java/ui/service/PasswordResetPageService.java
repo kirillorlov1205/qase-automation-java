@@ -26,14 +26,14 @@ public class PasswordResetPageService {
         return passwordResetPage.getValidationMessage();
     }
 
-    @Step("Clicking 'Navigate to Login ui.page' button")
+    @Step("Clicking 'Navigate to Login page' button")
     public PasswordResetPageService clickNavigateToLoginPageButton() {
         passwordResetPage = new PasswordResetPage();
         passwordResetPage.clickNavigateToLoginPageButton();
         return this;
     }
 
-    @Step("Clicking 'Navigate to SSO Login ui.page' button")
+    @Step("Clicking 'Navigate to SSO Login page' button")
     public PasswordResetPageService clickNavigateToSsoLoginPageButton() {
         passwordResetPage = new PasswordResetPage();
         passwordResetPage.clickNavigateToSsoLoginPage();
